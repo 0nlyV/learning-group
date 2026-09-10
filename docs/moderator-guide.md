@@ -1,0 +1,41 @@
+---
+layout: default
+title: Moderator guide
+permalink: /moderator-guide/
+---
+
+# Moderator guide
+
+## Install and open Learning Group
+
+After public approval, install Learning Group from Reddit's App Directory. Installation creates a **Learning Group · Portal** custom post. The subreddit menu command **Open Learning Group Portal** returns to the recorded Portal or recreates it when necessary.
+
+The Portal is both a discovery page for participants and a management surface for moderators. It does not record participant progress of its own.
+
+## Create a journey
+
+1. Open the Portal and select **Create new journey**.
+2. On the first configuration page, set the Reddit post title, journey label, title, short introduction, description, number of resource links, and number of sessions.
+3. Select **Configure learning content**.
+4. On the second page, configure each resource, session name, session guidance, reflection prompt, estimated minutes, and closing-section wording.
+5. Use **Back** to revise the first page without losing current values, or finish the form to create the journey.
+
+Resource addresses must be complete `http://` or `https://` URLs. Learning Group displays them but does not fetch or inspect their content. The community is responsible for choosing appropriate, lawful material and reviewing external destinations.
+
+Completing the form creates and opens a separate custom post under the signed-in moderator's account. The starter journey is only an editable example; all participant-facing wording can be replaced.
+
+## Manage journeys
+
+Each Portal card offers:
+
+- **Open journey** — visit its post.
+- **Edit** — change content while retaining progress for sessions that keep the same position.
+- **Use as template** — create a separate editable journey from the existing configuration.
+- **Conclude** — move an active journey into the dated concluded collection.
+- **Reopen** — return a concluded journey to the active collection.
+
+Concluding is optional and reversible. It does not delete or lock the journey post, remove comments, change its content, or reset participant progress.
+
+Session identifiers are preserved by position during editing. Rewording a session therefore retains existing progress. Reducing the number of sessions can make progress for removed sessions no longer visible. Later changes to the starter template do not overwrite published journeys.
+
+[Return to documentation](./)

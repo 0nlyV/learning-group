@@ -1,0 +1,46 @@
+name: Bug report
+description: Report a reproducible Learning Group problem
+title: '[Bug]: '
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Do not include Reddit usernames, private-community content, credentials, or security vulnerabilities. Follow SECURITY.md for private reports.
+  - type: input
+    id: version
+    attributes:
+      label: Learning Group version
+      placeholder: e.g. 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: Reddit client and device
+      placeholder: e.g. Reddit web in Chrome on Windows
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Explain the problem without including private data.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Open …
+        2. Select …
+        3. Observe …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true

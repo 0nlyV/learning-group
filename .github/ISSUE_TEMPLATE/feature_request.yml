@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest an improvement for participants or moderators
+title: '[Idea]: '
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Participant or moderator need
+      description: What problem or opportunity should Learning Group address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested approach
+      description: Describe the experience you would like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility and privacy considerations
+      description: Note any relevant inclusion, motion, contrast, data, or moderation implications.

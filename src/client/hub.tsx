@@ -248,10 +248,6 @@ const Hub = () => {
         ) : null}
       </header>
 
-      <section className="hub-intro">
-        <h1>Where community learn and discuss.</h1>
-      </section>
-
       <section className="hub-journeys" aria-labelledby="hub-journey-heading">
         <div className="hub-section-heading">
           <h2 id="hub-journey-heading">Learning journeys</h2>

@@ -2,6 +2,10 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.0.5 — 2026-09-10
+
+- Removed the Portal introduction panel so the journey collection follows the community header directly.
+
 ## 1.0.4 — 2026-09-10
 
 - Shortened the Portal moderator control to “MOD: Create new journey.”

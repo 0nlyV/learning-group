@@ -497,19 +497,53 @@ h1 {
 }
 .hub-group-heading {
   display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+.hub-group-heading::-webkit-details-marker {
+  display: none;
+}
+.hub-group-heading::before {
+  content: '›';
+  flex: none;
+  color: var(--color-control-text);
+  font-size: 25px;
+  line-height: 1;
+  transition: transform var(--theme-transition);
+}
+.hub-journey-group[open] > .hub-group-heading::before {
+  transform: rotate(90deg);
+}
+.hub-group-heading-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
   align-items: baseline;
   justify-content: space-between;
   gap: 18px;
-  margin-bottom: 16px;
 }
-.hub-group-heading h3 {
-  margin: 0;
+.hub-group-title {
   font-size: clamp(21px, 2.5vw, 28px);
+  font-weight: 650;
 }
-.hub-group-heading p {
-  margin: 0;
+.hub-group-description {
   color: var(--color-section-copy);
   font-size: 14px;
+}
+.hub-group-count {
+  min-width: 29px;
+  border: 1px solid var(--color-chip-border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: var(--color-chip-text);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 720;
+}
+.hub-group-content {
+  margin-top: 16px;
 }
 .hub-journey-card {
   display: flex;
@@ -527,6 +561,10 @@ h1 {
 }
 .hub-journey-card.is-concluded {
   border-left: 4px solid var(--color-portal-intro-border);
+  background: var(--color-portal-card-concluded);
+}
+.hub-journey-card.is-archived {
+  border-left: 4px solid var(--color-control-border);
   background: var(--color-portal-card-concluded);
 }
 .hub-card-heading {
@@ -601,7 +639,15 @@ h1 {
   background: var(--color-control-hover);
 }
 .hub-status-button {
+  margin-left: 0;
+}
+.hub-archive-button {
   margin-left: auto;
+}
+.hub-archive-button.is-confirming {
+  border-color: var(--color-error-border);
+  color: var(--color-error-text);
+  background: var(--color-error-background);
 }
 .hub-text-button:disabled,
 .hub-header-create:disabled {
@@ -1060,10 +1106,14 @@ h1 {
   }
   .hub-group-heading {
     align-items: start;
-    flex-direction: column;
-    gap: 4px;
   }
-  .hub-status-button {
+  .hub-group-heading-copy {
+    align-items: start;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hub-status-button,
+  .hub-archive-button {
     margin-left: 0;
   }
   .hero-grid {

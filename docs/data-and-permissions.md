@@ -15,6 +15,7 @@ The app stores in Devvit Redis:
 - Moderator-authored journey titles, descriptions, resource URLs, sessions, prompts, estimated times, and closing wording.
 - The Reddit username of the moderator who last updated a journey.
 - An optional conclusion timestamp and the Reddit username of the moderator who concluded it.
+- An optional permanent archive timestamp and the Reddit username of the moderator who archived it.
 - Each participant's completed session identifiers, keyed by Reddit username and journey post.
 - Aggregate participant and per-session completion counts.
 - The current Portal post reference.

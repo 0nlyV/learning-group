@@ -2,7 +2,7 @@
 
 Learning Group turns an article, book, video, podcast, course, study guide, or other shared resource into a guided community learning journey on Reddit.
 
-Participants move through configurable sessions at their own pace, keep personal progress, see lightweight community participation totals, and return to the Reddit discussion after completing the journey. Each journey has its own custom post, while the persistent **Learning Group Portal** provides one visually distinct place to discover active and concluded journeys.
+Participants move through configurable sessions at their own pace, keep personal progress, see lightweight community participation totals, and return to the Reddit discussion after completing the journey. Each journey has its own custom post, while the persistent **Learning Group Portal** provides one visually distinct place to discover active, concluded, and archived journeys.
 
 The community chooses the material and writes every instruction and reflection prompt. Learning Group has no advertising, payments, rankings, streak pressure, or external accounts.
 
@@ -25,13 +25,14 @@ From the Portal, moderators can:
 - Edit an existing journey while retaining compatible participant progress.
 - Use an existing journey as the editable template for a separate post.
 - Conclude and reopen journeys without deleting their posts, discussions, or progress.
-- Browse dated active and concluded journey collections.
+- Permanently archive a retired journey after confirmation, locking its configuration while keeping it available to open or use as a template.
+- Browse dated, collapsible active, concluded, and archived journey collections.
 
 Every completed configuration creates a separate journey post under the signed-in moderator's account. The built-in starter journey is only an editable example.
 
 ## Accessibility and appearance
 
-Learning Group follows the device or Reddit light and dark appearance setting. It uses high-contrast colours, responsive layouts, labelled controls, generous spacing, and the locally bundled Atkinson Hyperlegible Next typeface for clearer character recognition. Reduced-motion preferences are respected. The Portal uses its own indigo-and-gold palette, the Learning Group speech-and-book icon, and distinct active and concluded card treatments.
+Learning Group follows the device or Reddit light and dark appearance setting. It uses high-contrast colours, responsive layouts, labelled controls, generous spacing, and the locally bundled Atkinson Hyperlegible Next typeface for clearer character recognition. Reduced-motion preferences are respected. The Portal uses its own indigo-and-gold palette, the Learning Group speech-and-book icon, and distinct active, concluded, and archived card treatments.
 
 ## Data and privacy
 

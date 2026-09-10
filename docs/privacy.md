@@ -17,6 +17,7 @@ Learning Group processes the signed-in Reddit username and the current post and 
 - Moderator-authored journey content, including titles, descriptions, resource URLs, sessions, prompts, estimated times, and closing wording.
 - The Reddit username of the moderator who last updated a journey.
 - An optional conclusion timestamp and the Reddit username of the moderator who concluded it.
+- An optional permanent archive timestamp and the Reddit username of the moderator who archived it.
 - Each participant's completed session identifiers, keyed by Reddit username and journey post.
 - Aggregate participant and per-session completion counts.
 - The current Learning Group Portal post reference.
@@ -30,7 +31,7 @@ This information is used only to:
 - Restore a participant's progress for a particular journey.
 - Calculate personal and aggregate completion displays.
 - Let moderators create and manage learning journeys.
-- Locate the Portal and group active and concluded journeys.
+- Locate the Portal and group active, concluded, and archived journeys.
 - Protect moderator-only operations.
 
 Learning Group does not sell information, create advertising profiles, infer beliefs or personal characteristics, or use external analytics.

@@ -33,8 +33,11 @@ Each Portal card offers:
 - **Use as template** — create a separate editable journey from the existing configuration.
 - **Conclude** — move an active journey into the dated concluded collection.
 - **Reopen** — return a concluded journey to the active collection.
+- **Archive** — permanently retire and lock a journey after a second confirmation.
 
 Concluding is optional and reversible. It does not delete or lock the journey post, remove comments, change its content, or reset participant progress.
+
+Archiving is permanent. An archived journey remains available to open and can be used as the unchanged source for a new template, but its original configuration cannot be edited, concluded, reopened, or restored. The Portal records and displays its archive date. Active journeys are expanded by default; concluded and archived collections are collapsed by default.
 
 Session identifiers are preserved by position during editing. Rewording a session therefore retains existing progress. Reducing the number of sessions can make progress for removed sessions no longer visible. Later changes to the starter template do not overwrite published journeys.
 

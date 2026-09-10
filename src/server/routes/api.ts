@@ -3,6 +3,8 @@ import { Hono } from 'hono';
 import type {
   HubInitResponse,
   InitResponse,
+  JourneyArchiveRequest,
+  JourneyArchiveResponse,
   JourneyEditorDetailsResponse,
   JourneyEditorErrorResponse,
   JourneyEditorOperation,
@@ -23,8 +25,10 @@ import {
 import { getRecentJourneySummaries, isHubPost } from '../core/hub';
 import {
   getJourney,
+  getJourneyArchive,
   hasJourney,
   saveJourney,
+  setJourneyArchive,
   setJourneyConclusion,
 } from '../core/journey';
 import { getModeratorContext } from '../core/moderator';
@@ -48,6 +52,19 @@ type EditorRequest = {
 const requestIsForHub = () =>
   (context.postData as { kind?: unknown } | undefined)?.kind === HUB_POST_KIND;
 
+const archivedJourneyMessage = 'Archived journeys cannot be modified.';
+
+const editTargetsArchivedJourney = async (
+  operation: JourneyEditorOperation,
+  requestedSourcePostId?: string
+) => {
+  if (operation !== 'edit') return false;
+  const sourcePostId = requestedSourcePostId ?? context.postId;
+  return sourcePostId
+    ? Boolean(await getJourneyArchive(sourcePostId).catch(() => null))
+    : false;
+};
+
 const editorContext = async (
   operation: JourneyEditorOperation,
   requestedSourcePostId?: string
@@ -62,6 +79,9 @@ const editorContext = async (
   const sourcePostId = (requestedSourcePostId ?? currentPostId) as
     `t3_${string}` | undefined;
   if (sourcePostId && (await hasJourney(sourcePostId))) {
+    if (operation === 'edit' && (await getJourneyArchive(sourcePostId))) {
+      return null;
+    }
     const sourcePost = await reddit.getPostById(sourcePostId);
     if (
       sourcePost.subredditName.toLowerCase() !==
@@ -185,6 +205,13 @@ api.post('/hub/journey-status', async (c) => {
     );
   }
 
+  if (await getJourneyArchive(body.postId)) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: archivedJourneyMessage },
+      409
+    );
+  }
+
   const editor = await editorContext('edit', body.postId);
   if (!editor) {
     return c.json<ErrorResponse>(
@@ -206,9 +233,52 @@ api.post('/hub/journey-status', async (c) => {
   });
 });
 
+api.post('/hub/journey-archive', async (c) => {
+  const body = await c.req.json<Partial<JourneyArchiveRequest>>();
+  if (typeof body.postId !== 'string' || !body.postId.startsWith('t3_')) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: 'A valid journey is required.' },
+      400
+    );
+  }
+
+  if (await getJourneyArchive(body.postId)) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: 'This journey is already archived.' },
+      409
+    );
+  }
+
+  const editor = await editorContext('edit', body.postId);
+  if (!editor) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: 'Moderator access is required.' },
+      403
+    );
+  }
+
+  const archivedAt = await setJourneyArchive({
+    postId: body.postId,
+    archivedBy: editor.moderator.username,
+  });
+
+  return c.json<JourneyArchiveResponse>({
+    status: 'ok',
+    postId: body.postId,
+    archivedAt,
+  });
+});
+
 api.get('/editor/start', async (c) => {
   const operation = c.req.query('operation') === 'create' ? 'create' : 'edit';
-  const editor = await editorContext(operation, c.req.query('sourcePostId'));
+  const sourcePostId = c.req.query('sourcePostId');
+  if (await editTargetsArchivedJourney(operation, sourcePostId)) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: archivedJourneyMessage },
+      409
+    );
+  }
+  const editor = await editorContext(operation, sourcePostId);
   if (!editor) {
     return c.json<ErrorResponse>(
       { status: 'error', message: 'Moderator access is required.' },
@@ -234,6 +304,12 @@ api.get('/editor/start', async (c) => {
 api.post('/editor/details', async (c) => {
   const body = await c.req.json<EditorRequest>();
   const operation = body.operation === 'create' ? 'create' : 'edit';
+  if (await editTargetsArchivedJourney(operation, body.sourcePostId)) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: archivedJourneyMessage },
+      409
+    );
+  }
   const editor = await editorContext(operation, body.sourcePostId);
   if (!editor || !body.input) {
     return c.json<ErrorResponse>(
@@ -288,6 +364,12 @@ api.post('/editor/details', async (c) => {
 api.post('/editor/save', async (c) => {
   const body = await c.req.json<EditorRequest>();
   const operation = body.operation === 'create' ? 'create' : 'edit';
+  if (await editTargetsArchivedJourney(operation, body.sourcePostId)) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: archivedJourneyMessage },
+      409
+    );
+  }
   const editor = await editorContext(operation, body.sourcePostId);
   if (!editor || !body.detailsInput || !body.sessionsInput) {
     return c.json<ErrorResponse>(

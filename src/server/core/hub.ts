@@ -1,6 +1,11 @@
 import { reddit, redis, type Post } from '@devvit/web/server';
 import type { HubJourneySummary } from '../../shared/api';
-import { getJourney, getJourneyConclusion, hasJourney } from './journey';
+import {
+  getJourney,
+  getJourneyArchive,
+  getJourneyConclusion,
+  hasJourney,
+} from './journey';
 import { createHubPost, HUB_POST_KIND, HUB_POST_TITLE } from './post';
 import { getCommunityProgress } from './progress';
 
@@ -83,10 +88,11 @@ export const getRecentJourneySummaries = async (
   const summaries = await Promise.allSettled(
     posts.map(async (post): Promise<HubJourneySummary | null> => {
       if (post.removed || !(await hasJourney(post.id))) return null;
-      const [journey, community, concludedAt] = await Promise.all([
+      const [journey, community, concludedAt, archivedAt] = await Promise.all([
         getJourney(post.id),
         getCommunityProgress(post.id),
         getJourneyConclusion(post.id),
+        getJourneyArchive(post.id),
       ]);
       return {
         postId: post.id,
@@ -94,6 +100,7 @@ export const getRecentJourneySummaries = async (
         postUrl: `https://www.reddit.com${post.permalink}`,
         createdAt: post.createdAt.toISOString(),
         concludedAt,
+        archivedAt,
         label: journey.label,
         title: journey.title,
         subtitle: journey.subtitle,
@@ -107,13 +114,18 @@ export const getRecentJourneySummaries = async (
     result.status === 'fulfilled' && result.value ? [result.value] : []
   );
   const active = available
-    .filter((journey) => !journey.concludedAt)
+    .filter((journey) => !journey.concludedAt && !journey.archivedAt)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     .slice(0, limit);
   const concluded = available
-    .filter((journey) => journey.concludedAt)
+    .filter((journey) => journey.concludedAt && !journey.archivedAt)
     .sort((a, b) => (b.concludedAt ?? '').localeCompare(a.concludedAt ?? ''))
     .slice(0, limit);
 
-  return [...active, ...concluded];
+  const archived = available
+    .filter((journey) => journey.archivedAt)
+    .sort((a, b) => (b.archivedAt ?? '').localeCompare(a.archivedAt ?? ''))
+    .slice(0, limit);
+
+  return [...active, ...concluded, ...archived];
 };

@@ -15,6 +15,8 @@ type StoredJourney = {
   updatedBy: string;
   concludedAt?: string;
   concludedBy?: string;
+  archivedAt?: string;
+  archivedBy?: string;
 };
 
 const journeyKey = (postId: string) => `learning-group:${postId}:journey`;
@@ -44,6 +46,12 @@ const getStoredJourney = async (
         : {}),
       ...(typeof stored.concludedBy === 'string'
         ? { concludedBy: stored.concludedBy }
+        : {}),
+      ...(typeof stored.archivedAt === 'string'
+        ? { archivedAt: stored.archivedAt }
+        : {}),
+      ...(typeof stored.archivedBy === 'string'
+        ? { archivedBy: stored.archivedBy }
         : {}),
     };
   } catch {
@@ -148,6 +156,13 @@ export const getJourneyConclusion = async (
   return stored?.concludedAt ?? null;
 };
 
+export const getJourneyArchive = async (
+  postId: string
+): Promise<string | null> => {
+  const stored = await getStoredJourney(postId);
+  return stored?.archivedAt ?? null;
+};
+
 export const saveJourney = async ({
   postId,
   journey,
@@ -162,6 +177,9 @@ export const saveJourney = async ({
   }
 
   const previous = await getStoredJourney(postId);
+  if (previous?.archivedAt) {
+    throw new Error('Archived journeys cannot be modified.');
+  }
   const stored: StoredJourney = {
     journey,
     updatedAt: new Date().toISOString(),
@@ -189,6 +207,9 @@ export const setJourneyConclusion = async ({
 }): Promise<string | null> => {
   const stored = await getStoredJourney(postId);
   if (!stored) throw new Error('Learning Group journey not found.');
+  if (stored.archivedAt) {
+    throw new Error('Archived journeys cannot be modified.');
+  }
 
   if (concluded) {
     const concludedAt = stored.concludedAt ?? new Date().toISOString();
@@ -210,4 +231,26 @@ export const setJourneyConclusion = async ({
   } = stored;
   await redis.set(journeyKey(postId), JSON.stringify(active));
   return null;
+};
+
+export const setJourneyArchive = async ({
+  postId,
+  archivedBy,
+}: {
+  postId: string;
+  archivedBy: string;
+}): Promise<string> => {
+  const stored = await getStoredJourney(postId);
+  if (!stored) throw new Error('Learning Group journey not found.');
+
+  const archivedAt = stored.archivedAt ?? new Date().toISOString();
+  await redis.set(
+    journeyKey(postId),
+    JSON.stringify({
+      ...stored,
+      archivedAt,
+      archivedBy,
+    } satisfies StoredJourney)
+  );
+  return archivedAt;
 };

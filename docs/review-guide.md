@@ -15,9 +15,10 @@ This path gives Reddit reviewers and subreddit moderators a concise functional c
 5. Confirm that **Join the discussion** is absent before completion.
 6. Complete the session and confirm that the configured closing text and **Join the discussion** appear.
 7. Use that action and confirm that Reddit's native post discussion is available.
-8. Return to the Portal and test **Edit**, **Use as template**, **Conclude**, and **Reopen**.
-9. Repeat the participant path with a non-moderator account. Confirm that journey-management controls are absent and personal progress survives a refresh.
-10. Check a narrow viewport, light appearance, dark appearance, and reduced-motion preference.
+8. Return to the Portal and confirm Active is expanded by default while Concluded is collapsed; test **Edit**, **Use as template**, **Conclude**, and **Reopen**.
+9. Select **Archive**, verify the confirmation step, and confirm the journey moves into the collapsed Archived collection with no Edit, Conclude, Reopen, or restore control. Confirm **Open journey** and **Use as template** remain available.
+10. Repeat the participant path with a non-moderator account. Confirm that journey-management controls are absent and personal progress survives a refresh.
+11. Check a narrow viewport, light appearance, dark appearance, and reduced-motion preference.
 
 No external account, API key, payment, or additional service is required.
 

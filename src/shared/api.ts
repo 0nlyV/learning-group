@@ -45,6 +45,7 @@ export type HubJourneySummary = {
   postUrl: string;
   createdAt: string;
   concludedAt: string | null;
+  archivedAt: string | null;
   label: string;
   title: string;
   subtitle: string;
@@ -68,6 +69,16 @@ export type JourneyStatusResponse = {
   status: 'ok';
   postId: string;
   concludedAt: string | null;
+};
+
+export type JourneyArchiveRequest = {
+  postId: string;
+};
+
+export type JourneyArchiveResponse = {
+  status: 'ok';
+  postId: string;
+  archivedAt: string;
 };
 
 export type ProgressRequest = {

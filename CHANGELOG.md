@@ -2,6 +2,12 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.0 — 2026-09-10
+
+- Made active and concluded journey collections collapsible, with active open and concluded closed by default.
+- Added a permanently read-only archive state with its own collapsed collection, archive dates, and moderator-only two-step confirmation.
+- Kept archived journeys viewable and reusable as templates while enforcing immutability on the server.
+
 ## 1.0.6 — 2026-09-10
 
 - Positioned the compact participant guidance immediately above the active journey collection.

@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import type {
   HubInitResponse,
   HubJourneySummary,
+  JourneyArchiveResponse,
   JourneyStatusResponse,
 } from '../shared/api';
 import { BrandIcon } from './brand-icon';
@@ -17,6 +18,8 @@ type HubState = {
   isModerator: boolean;
   journeys: HubJourneySummary[];
 };
+
+type JourneyCollection = 'active' | 'concluded' | 'archived';
 
 const initialState: HubState = {
   loading: true,
@@ -49,6 +52,15 @@ const Hub = () => {
   const [statusSavingPostId, setStatusSavingPostId] = useState<string | null>(
     null
   );
+  const [archiveSavingPostId, setArchiveSavingPostId] = useState<string | null>(
+    null
+  );
+  const [archiveConfirmPostId, setArchiveConfirmPostId] = useState<
+    string | null
+  >(null);
+  const [activeOpen, setActiveOpen] = useState(true);
+  const [concludedOpen, setConcludedOpen] = useState(false);
+  const [archivedOpen, setArchivedOpen] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -126,6 +138,53 @@ const Hub = () => {
     }
   };
 
+  const archiveJourney = async (journey: HubJourneySummary) => {
+    if (archiveConfirmPostId !== journey.postId) {
+      setArchiveConfirmPostId(journey.postId);
+      showToast({
+        text: 'Archiving is permanent. Select Confirm archive to continue.',
+        appearance: 'neutral',
+      });
+      return;
+    }
+
+    setArchiveSavingPostId(journey.postId);
+    try {
+      const response = await fetch('/api/hub/journey-archive', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId: journey.postId }),
+      });
+      const data = (await response.json()) as
+        JourneyArchiveResponse | { status: 'error'; message?: string };
+      if (!response.ok || data.status !== 'ok') {
+        throw new Error(
+          'message' in data && data.message
+            ? data.message
+            : 'The journey could not be archived.'
+        );
+      }
+
+      setState((current) => ({
+        ...current,
+        journeys: current.journeys.map((item) =>
+          item.postId === data.postId
+            ? { ...item, archivedAt: data.archivedAt }
+            : item
+        ),
+      }));
+      setArchiveConfirmPostId(null);
+      showToast({
+        text: 'Journey moved to Archived journeys and locked from editing.',
+        appearance: 'success',
+      });
+    } catch (error) {
+      showToast({ text: errorMessage(error), appearance: 'neutral' });
+    } finally {
+      setArchiveSavingPostId(null);
+    }
+  };
+
   if (state.loading) {
     return <main className="hub-shell loading-card">Opening the portal…</main>;
   }
@@ -145,84 +204,139 @@ const Hub = () => {
   }
 
   const activeJourneys = state.journeys
-    .filter((journey) => !journey.concludedAt)
+    .filter((journey) => !journey.concludedAt && !journey.archivedAt)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   const concludedJourneys = state.journeys
-    .filter((journey) => journey.concludedAt)
+    .filter((journey) => journey.concludedAt && !journey.archivedAt)
     .sort((a, b) => (b.concludedAt ?? '').localeCompare(a.concludedAt ?? ''));
-  const actionsDisabled = editorOpen !== null || statusSavingPostId !== null;
+  const archivedJourneys = state.journeys
+    .filter((journey) => journey.archivedAt)
+    .sort((a, b) => (b.archivedAt ?? '').localeCompare(a.archivedAt ?? ''));
+  const actionsBusy =
+    editorOpen !== null ||
+    statusSavingPostId !== null ||
+    archiveSavingPostId !== null;
+  const actionsDisabled = actionsBusy || archiveConfirmPostId !== null;
 
-  const journeyGrid = (journeys: HubJourneySummary[], concluded: boolean) => (
-    <div className="hub-journey-grid">
-      {journeys.map((journey) => (
-        <article
-          className={`hub-journey-card ${concluded ? 'is-concluded' : 'is-active'}`}
-          key={journey.postId}
-        >
-          <div>
-            <div className="hub-card-heading">
-              <p className="hub-card-label">{journey.label}</p>
-              {concluded ? (
-                <span className="hub-status-badge">Concluded</span>
-              ) : null}
-            </div>
-            <h3>{journey.title}</h3>
-            <p className="hub-card-copy">{journey.subtitle}</p>
-          </div>
-          <div className="hub-card-meta">
-            <span>
-              {journey.sessionCount} session
-              {journey.sessionCount === 1 ? '' : 's'}
-            </span>
-            <span>{participantCountLabel(journey.participantCount)}</span>
-            <span>Started {formatDate(journey.createdAt)}</span>
-            {journey.concludedAt ? (
-              <span>Concluded {formatDate(journey.concludedAt)}</span>
-            ) : null}
-          </div>
-          <div className="hub-card-actions">
-            <button
-              className="hub-open-button"
-              onClick={() => navigateTo(journey.postUrl)}
+  const journeyGrid = (
+    journeys: HubJourneySummary[],
+    collection: JourneyCollection
+  ) => {
+    const concluded = collection === 'concluded';
+    const archived = collection === 'archived';
+
+    return (
+      <div className="hub-journey-grid">
+        {journeys.map((journey) => {
+          const confirmingArchive = archiveConfirmPostId === journey.postId;
+          const archiveDisabled =
+            actionsBusy ||
+            (archiveConfirmPostId !== null && !confirmingArchive);
+
+          return (
+            <article
+              className={`hub-journey-card is-${collection}`}
+              key={journey.postId}
             >
-              Open journey
-            </button>
-            {state.isModerator ? (
-              <>
+              <div>
+                <div className="hub-card-heading">
+                  <p className="hub-card-label">{journey.label}</p>
+                  {concluded || archived ? (
+                    <span className="hub-status-badge">
+                      {archived ? 'Archived' : 'Concluded'}
+                    </span>
+                  ) : null}
+                </div>
+                <h3>{journey.title}</h3>
+                <p className="hub-card-copy">{journey.subtitle}</p>
+              </div>
+              <div className="hub-card-meta">
+                <span>
+                  {journey.sessionCount} session
+                  {journey.sessionCount === 1 ? '' : 's'}
+                </span>
+                <span>{participantCountLabel(journey.participantCount)}</span>
+                <span>Started {formatDate(journey.createdAt)}</span>
+                {journey.concludedAt ? (
+                  <span>Concluded {formatDate(journey.concludedAt)}</span>
+                ) : null}
+                {journey.archivedAt ? (
+                  <span>Archived {formatDate(journey.archivedAt)}</span>
+                ) : null}
+              </div>
+              <div className="hub-card-actions">
                 <button
-                  className="hub-text-button"
-                  disabled={actionsDisabled}
-                  onClick={() => void openEditor('edit', journey.postId)}
+                  className="hub-open-button"
+                  onClick={() => navigateTo(journey.postUrl)}
                 >
-                  Edit
+                  Open journey
                 </button>
-                <button
-                  className="hub-text-button"
-                  disabled={actionsDisabled}
-                  onClick={() => void openEditor('create', journey.postId)}
-                >
-                  Use as template
-                </button>
-                <button
-                  className="hub-text-button hub-status-button"
-                  disabled={actionsDisabled}
-                  onClick={() => void setJourneyStatus(journey, !concluded)}
-                >
-                  {statusSavingPostId === journey.postId
-                    ? concluded
-                      ? 'Reopening…'
-                      : 'Concluding…'
-                    : concluded
-                      ? 'Reopen'
-                      : 'Conclude'}
-                </button>
-              </>
-            ) : null}
-          </div>
-        </article>
-      ))}
-    </div>
-  );
+                {state.isModerator ? (
+                  <>
+                    {!archived ? (
+                      <button
+                        className="hub-text-button"
+                        disabled={actionsDisabled}
+                        onClick={() => void openEditor('edit', journey.postId)}
+                      >
+                        Edit
+                      </button>
+                    ) : null}
+                    <button
+                      className="hub-text-button"
+                      disabled={actionsDisabled}
+                      onClick={() => void openEditor('create', journey.postId)}
+                    >
+                      Use as template
+                    </button>
+                    {!archived ? (
+                      <>
+                        <button
+                          className="hub-text-button hub-status-button"
+                          disabled={actionsDisabled}
+                          onClick={() =>
+                            void setJourneyStatus(journey, !concluded)
+                          }
+                        >
+                          {statusSavingPostId === journey.postId
+                            ? concluded
+                              ? 'Reopening…'
+                              : 'Concluding…'
+                            : concluded
+                              ? 'Reopen'
+                              : 'Conclude'}
+                        </button>
+                        <button
+                          className={`hub-text-button hub-archive-button ${confirmingArchive ? 'is-confirming' : ''}`}
+                          disabled={archiveDisabled}
+                          onClick={() => void archiveJourney(journey)}
+                        >
+                          {archiveSavingPostId === journey.postId
+                            ? 'Archiving…'
+                            : confirmingArchive
+                              ? 'Confirm archive'
+                              : 'Archive'}
+                        </button>
+                        {confirmingArchive ? (
+                          <button
+                            className="hub-text-button"
+                            disabled={actionsBusy}
+                            onClick={() => setArchiveConfirmPostId(null)}
+                          >
+                            Cancel
+                          </button>
+                        ) : null}
+                      </>
+                    ) : null}
+                  </>
+                ) : null}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <main className="hub-shell">
@@ -237,7 +351,7 @@ const Hub = () => {
           <div className="hub-header-actions">
             <button
               className="hub-header-create"
-              disabled={editorOpen !== null}
+              disabled={actionsDisabled}
               onClick={() => void openEditor('create')}
             >
               <span className="hub-moderator-label">MOD:</span>
@@ -252,7 +366,7 @@ const Hub = () => {
         <div className="hub-section-heading">
           <h2 id="hub-journey-heading">Learning journeys</h2>
           {state.journeys.length ? (
-            <p>{`${activeJourneys.length} active · ${concludedJourneys.length} concluded`}</p>
+            <p>{`${activeJourneys.length} active · ${concludedJourneys.length} concluded · ${archivedJourneys.length} archived`}</p>
           ) : null}
         </div>
 
@@ -265,24 +379,36 @@ const Hub = () => {
         </details>
 
         {activeJourneys.length ? (
-          <section
-            className="hub-journey-group"
-            aria-labelledby="active-heading"
+          <details
+            className="hub-journey-group is-active-group"
+            open={activeOpen}
+            onToggle={(event) => setActiveOpen(event.currentTarget.open)}
           >
-            <div className="hub-group-heading">
-              <h3 id="active-heading">Active journeys</h3>
-              <p>Open now for learning and discussion.</p>
+            <summary className="hub-group-heading">
+              <span className="hub-group-heading-copy">
+                <span className="hub-group-title">Active journeys</span>
+                <span className="hub-group-description">
+                  Open now for learning and discussion.
+                </span>
+              </span>
+              <span className="hub-group-count">{activeJourneys.length}</span>
+            </summary>
+            <div className="hub-group-content">
+              {journeyGrid(activeJourneys, 'active')}
             </div>
-            {journeyGrid(activeJourneys, false)}
-          </section>
+          </details>
         ) : state.journeys.length ? (
           <div className="hub-empty-state hub-empty-active">
             <p className="eyebrow">Between journeys</p>
             <h3>No journeys are active right now.</h3>
             <p>
               {state.isModerator
-                ? 'Create a new journey or reopen one from the concluded collection below.'
-                : 'A moderator can publish or reopen the community’s next journey.'}
+                ? concludedJourneys.length
+                  ? 'Create a new journey or reopen one from the concluded collection below.'
+                  : 'Create a new journey to restart community learning.'
+                : concludedJourneys.length
+                  ? 'A moderator can publish or reopen the community’s next journey.'
+                  : 'A moderator can publish the community’s next journey.'}
             </p>
           </div>
         ) : (
@@ -298,16 +424,47 @@ const Hub = () => {
         )}
 
         {concludedJourneys.length ? (
-          <section
+          <details
             className="hub-journey-group hub-concluded-group"
-            aria-labelledby="concluded-heading"
+            open={concludedOpen}
+            onToggle={(event) => setConcludedOpen(event.currentTarget.open)}
           >
-            <div className="hub-group-heading">
-              <h3 id="concluded-heading">Concluded journeys</h3>
-              <p>Completed community journeys kept available for reference.</p>
+            <summary className="hub-group-heading">
+              <span className="hub-group-heading-copy">
+                <span className="hub-group-title">Concluded journeys</span>
+                <span className="hub-group-description">
+                  Completed community journeys kept available for reference.
+                </span>
+              </span>
+              <span className="hub-group-count">
+                {concludedJourneys.length}
+              </span>
+            </summary>
+            <div className="hub-group-content">
+              {journeyGrid(concludedJourneys, 'concluded')}
             </div>
-            {journeyGrid(concludedJourneys, true)}
-          </section>
+          </details>
+        ) : null}
+
+        {archivedJourneys.length ? (
+          <details
+            className="hub-journey-group hub-archived-group"
+            open={archivedOpen}
+            onToggle={(event) => setArchivedOpen(event.currentTarget.open)}
+          >
+            <summary className="hub-group-heading">
+              <span className="hub-group-heading-copy">
+                <span className="hub-group-title">Archived journeys</span>
+                <span className="hub-group-description">
+                  Retired, read-only journeys kept for reference.
+                </span>
+              </span>
+              <span className="hub-group-count">{archivedJourneys.length}</span>
+            </summary>
+            <div className="hub-group-content">
+              {journeyGrid(archivedJourneys, 'archived')}
+            </div>
+          </details>
         ) : null}
       </section>
     </main>

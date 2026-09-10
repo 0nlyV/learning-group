@@ -1,15 +1,16 @@
-# Learning Group
+# About the App
 
-Learning Group turns an article, book, video, podcast, course, study guide, or other shared resource into a guided community learning journey on Reddit.
+Learning Group turns an article, book, video, podcast, course, study guide, or other shared resource into a guided community learning journey on Reddit. It allows the community to set the material and configure instructions and reflection prompts.
 
-Participants move through configurable sessions at their own pace, keep personal progress, see lightweight community participation totals, and return to the Reddit discussion after completing the journey. Each journey has its own custom post, while the persistent **Learning Group Portal** provides one visually distinct place to discover active, concluded, and archived journeys.
+Participants move through configurable sessions at their own pace, keep personal progress, see lightweight community participation totals, and return to the Reddit discussion after completing the journey. Each journey has its own custom post, while the persistent **Learning Group Portal** provides one intuitive and centralised place to discover active, concluded, and archived journeys.
 
-The community chooses the material and writes every instruction and reflection prompt. Learning Group has no advertising, payments, rankings, streak pressure, or external accounts.
+Learning Group has no advertising, payments, rankings, streak pressure, or external accounts.
 
 ## For participants
 
 - Follow one to twelve moderator-configured learning sessions.
 - Mark or unmark sessions and resume later with the same Reddit account.
+- Reset progress only through the two-step confirmation flow.
 - See personal completion progress and aggregate community totals.
 - Open optional resource URLs alongside the journey.
 - Reveal the closing reflection and **Join the discussion** action after completing every session.
@@ -17,7 +18,7 @@ The community chooses the material and writes every instruction and reflection p
 
 ## For moderators
 
-Installation creates a **Learning Group · Portal** custom post. Its header pairs the host subreddit with the Learning Group Portal name, and moderators can start a new journey from the prominent control at the top. Individual journey previews and expanded views also identify their host subreddit. A compact participant hint sits immediately above the journey listings and stays collapsed by default for moderators, keeping their working path short. The subreddit menu command **Open Learning Group Portal** returns to it or recreates it if necessary.
+Installation creates a **Learning Group · Portal** custom post. Its header displays the host subreddit, and moderators can start a new journey from the convenient control at the top. Individual journey previews and expanded views also identify their host subreddit. A compact participant hint sits immediately above the journey listings and stays collapsed by default for moderators, keeping their working path short. The subreddit menu command **Open Learning Group Portal** returns to it or recreates it if necessary.
 
 From the Portal, moderators can:
 
@@ -36,9 +37,9 @@ Learning Group follows the device or Reddit light and dark appearance setting. I
 
 ## Data and privacy
 
-Learning Group uses Reddit and Reddit-hosted Devvit services only. It stores journey configuration, moderator lifecycle information, each participant's completed session identifiers keyed to their Reddit username and journey post, aggregate completion counts, and the Portal post reference.
+Learning Group uses Reddit and Reddit-hosted Devvit services only. It stores journey configuration, moderator lifecycle timestamps, each participant's completed session identifiers keyed to their Reddit username and journey post, aggregate completion counts, and the Portal post reference. Moderator usernames are not stored. A participant can clear their own progress in the app, and deleting an associated Reddit post automatically removes its stored journey and progress data.
 
-Participants see their own progress and community totals. Moderators do not receive a list of accounts that completed a particular session. The app does not collect learning notes, passwords, email addresses, real names, religious affiliation, precise location, payment information, or external analytics. It does not fetch, inspect, or track the contents of resource URLs.
+Participants see their own progress and community totals. Moderators do not receive a list of accounts that completed a particular session. When sessions are removed during an edit, progress and counts for those sessions are pruned. The app does not collect learning notes, passwords, email addresses, real names, religious affiliation, precise location, payment information, or external analytics. It does not fetch, inspect, or track the contents of resource URLs.
 
 - [Privacy Policy](https://0nlyv.github.io/learning-group/privacy/)
 - [Terms of Use](https://0nlyv.github.io/learning-group/terms/)

@@ -1,5 +1,10 @@
 import { exitExpandedMode, navigateTo } from '@devvit/web/client';
-import { StrictMode, type CSSProperties, type MouseEvent } from 'react';
+import {
+  StrictMode,
+  useState,
+  type CSSProperties,
+  type MouseEvent,
+} from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrandIcon } from './brand-icon';
 import { useJourney } from './hooks/useJourney';
@@ -17,9 +22,12 @@ const JourneyApp = () => {
     participantCount,
     completionCounts,
     savingStageId,
+    resettingProgress,
     percentage,
     toggleStage,
+    resetProgress,
   } = useJourney();
+  const [confirmingReset, setConfirmingReset] = useState(false);
 
   if (loading) {
     return (
@@ -76,6 +84,11 @@ const JourneyApp = () => {
           <div
             className="progress-ring"
             style={{ '--progress': `${percentage * 3.6}deg` } as CSSProperties}
+            role="progressbar"
+            aria-label="Your journey progress"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={percentage}
           >
             <div>
               <strong>{percentage}%</strong>
@@ -170,7 +183,7 @@ const JourneyApp = () => {
                 <button
                   className="complete-button"
                   aria-pressed={complete}
-                  disabled={savingStageId === stage.id}
+                  disabled={Boolean(savingStageId) || resettingProgress}
                   onClick={() => void toggleStage(stage.id)}
                 >
                   <span aria-hidden="true">{complete ? '✓' : '○'}</span>
@@ -217,6 +230,36 @@ const JourneyApp = () => {
           <button className="close-button" onClick={closeReadingView}>
             Close learning view
           </button>
+          {confirmingReset ? (
+            <span className="reset-confirmation" aria-live="polite">
+              <button
+                className="reset-button is-confirming"
+                disabled={resettingProgress}
+                onClick={() => {
+                  void resetProgress().then((reset) => {
+                    if (reset) setConfirmingReset(false);
+                  });
+                }}
+              >
+                {resettingProgress ? 'Resetting…' : 'Confirm reset'}
+              </button>
+              <button
+                className="reset-cancel-button"
+                disabled={resettingProgress}
+                onClick={() => setConfirmingReset(false)}
+              >
+                Cancel
+              </button>
+            </span>
+          ) : (
+            <button
+              className="reset-button"
+              disabled={Boolean(savingStageId)}
+              onClick={() => setConfirmingReset(true)}
+            >
+              Reset my progress
+            </button>
+          )}
         </div>
       </section>
     </main>

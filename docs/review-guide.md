@@ -19,6 +19,7 @@ This path gives Reddit reviewers and subreddit moderators a concise functional c
 9. Select **Archive**, verify the confirmation step, and confirm the journey moves into the collapsed Archived collection with no Edit, Conclude, Reopen, or restore control. Confirm **Open journey** and **Use as template** remain available.
 10. Repeat the participant path with a non-moderator account. Confirm that journey-management controls are absent and personal progress survives a refresh.
 11. Check a narrow viewport, light appearance, dark appearance, and reduced-motion preference.
+12. Verify that **Reset my progress** opens a confirmation state before deletion, that deleting an associated journey post removes its journey/progress data and any matching Portal reference, and that removing sessions during an edit prunes their progress and counts. Confirm an over-limit moderator-authored journey is rejected rather than silently truncating its user-generated post attribution. Check semantic progress bars and the low-prominence red-outline archive action.
 
 No external account, API key, payment, or additional service is required.
 

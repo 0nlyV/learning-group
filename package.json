@@ -1,18 +1,22 @@
 {
   "private": true,
   "name": "learning-group",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "BSD-3-Clause",
   "type": "module",
+  "packageManager": "pnpm@11.19.0",
   "scripts": {
     "build": "vite build",
-    "deploy": "npm run test:types && npm run lint && devvit upload",
+    "deploy": "pnpm verify && devvit upload",
     "dev": "devvit playtest",
-    "launch": "npm run test:types && npm run lint && devvit publish --public",
+    "launch": "pnpm verify && devvit publish --public",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "login": "devvit login",
+    "format:check": "prettier --check .",
     "prettier": "prettier --write .",
-    "test:types": "tsc --build"
+    "test": "tsx --test tests/*.test.ts",
+    "test:types": "tsc --build",
+    "verify": "pnpm test && pnpm test:types && pnpm lint && pnpm format:check && pnpm build"
   },
   "engines": {
     "node": ">=24.18.0"
@@ -39,6 +43,7 @@
     "globals": "17.11.0",
     "prettier": "3.9.6",
     "tailwindcss": "4.3.3",
+    "tsx": "4.20.6",
     "typescript": "6.0.3",
     "typescript-eslint": "8.68.0",
     "vite": "8.2.2"

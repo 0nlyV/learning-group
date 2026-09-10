@@ -57,7 +57,14 @@ const Splash = () => {
             ? 'Be the first participant'
             : `${participantCount} participant${participantCount === 1 ? '' : 's'} taking part`}
         </div>
-        <div className="progress-track" aria-label={`${percentage}% complete`}>
+        <div
+          className="progress-track"
+          role="progressbar"
+          aria-label="Your journey progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={percentage}
+        >
           <span style={{ width: `${percentage}%` }} />
         </div>
         <button

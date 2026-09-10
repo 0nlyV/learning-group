@@ -39,6 +39,8 @@ Concluding is optional and reversible. It does not delete or lock the journey po
 
 Archiving is permanent. An archived journey remains available to open and can be used as the unchanged source for a new template, but its original configuration cannot be edited, concluded, reopened, or restored. The Portal records and displays its archive date. Active journeys are expanded by default; concluded and archived collections are collapsed by default.
 
-Session identifiers are preserved by position during editing. Rewording a session therefore retains existing progress. Reducing the number of sessions can make progress for removed sessions no longer visible. Later changes to the starter template do not overwrite published journeys.
+Session identifiers are preserved by position during editing. Rewording a session therefore retains existing progress. Reducing the number of sessions prunes progress and counts for removed sessions. Progress updates are race-safe, and later changes to the starter template do not overwrite published journeys. If an associated Reddit post is deleted, the app automatically removes its journey data, progress, counts, and Portal reference.
+
+The archive action uses a low-prominence red outline and requires two-step confirmation. Custom posts include generic fallback text for unsupported clients.
 
 [Return to documentation](./)

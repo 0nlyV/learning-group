@@ -643,11 +643,16 @@ h1 {
 }
 .hub-archive-button {
   margin-left: auto;
-}
-.hub-archive-button.is-confirming {
   border-color: var(--color-error-border);
   color: var(--color-error-text);
-  background: var(--color-error-background);
+  background: transparent;
+}
+.hub-archive-button:hover,
+.hub-archive-button.is-confirming,
+.hub-archive-button.is-confirming:hover {
+  border-color: var(--color-error-border);
+  color: var(--color-error-text);
+  background: transparent;
 }
 .hub-text-button:disabled,
 .hub-header-create:disabled {
@@ -1010,7 +1015,9 @@ h1 {
   gap: 12px;
 }
 .discussion-button,
-.close-button {
+.close-button,
+.reset-button,
+.reset-cancel-button {
   min-height: 46px;
   border-radius: 999px;
   padding: 0 20px;
@@ -1055,6 +1062,44 @@ h1 {
 }
 .closing-card.is-visible .close-button:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+.reset-confirmation {
+  display: inline-flex;
+  gap: 8px;
+}
+.reset-button,
+.reset-cancel-button {
+  border: 1px solid var(--color-control-border);
+  color: var(--color-control-text);
+  background: transparent;
+}
+.reset-button {
+  border-color: var(--color-error-border);
+  color: var(--color-error-text);
+}
+.reset-button:hover,
+.reset-button.is-confirming,
+.reset-button.is-confirming:hover {
+  background: transparent;
+}
+.reset-cancel-button:hover {
+  background: var(--color-control-hover);
+}
+.closing-card.is-visible .reset-button {
+  color: #ffd9d1;
+  border-color: #e08a78;
+}
+.closing-card.is-visible .reset-cancel-button {
+  color: var(--color-closing-text);
+  border-color: var(--color-closing-copy);
+}
+.closing-card.is-visible .reset-cancel-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.reset-button:disabled,
+.reset-cancel-button:disabled {
+  cursor: wait;
+  opacity: 0.62;
 }
 .loading-card {
   display: grid;
@@ -1153,9 +1198,15 @@ h1 {
     flex-direction: column;
   }
   .discussion-button,
-  .close-button {
+  .close-button,
+  .reset-button,
+  .reset-cancel-button {
     width: 100%;
     justify-content: center;
+  }
+  .reset-confirmation {
+    flex-direction: column;
+    width: 100%;
   }
 }
 

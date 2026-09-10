@@ -13,12 +13,14 @@ Learning Group uses Reddit and Reddit-hosted Devvit services only. It has no ext
 The app stores in Devvit Redis:
 
 - Moderator-authored journey titles, descriptions, resource URLs, sessions, prompts, estimated times, and closing wording.
-- The Reddit username of the moderator who last updated a journey.
-- An optional conclusion timestamp and the Reddit username of the moderator who concluded it.
-- An optional permanent archive timestamp and the Reddit username of the moderator who archived it.
+- Moderator lifecycle timestamps for updates, conclusions, and permanent archives. Moderator usernames are not stored.
 - Each participant's completed session identifiers, keyed by Reddit username and journey post.
 - Aggregate participant and per-session completion counts.
 - The current Portal post reference.
+
+When an associated Reddit post is deleted, the app automatically deletes its journey configuration, participant progress, aggregate counts, and any matching Portal reference. Editing a journey to remove sessions also prunes progress and counts for those sessions. Progress updates use race-safe server operations, and custom posts include generic fallback text for unsupported clients.
+
+Moderator-authored content is supplied to Reddit as user-generated post attribution. Its combined length is validated before submission and an over-limit journey is rejected rather than silently truncated.
 
 It does not store learning notes, individual completion timestamps, passwords, email addresses, real names, religious affiliation, precise location, or payment information. Unsaved form values remain in the active Reddit form and are not stored as drafts.
 

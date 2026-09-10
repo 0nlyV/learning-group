@@ -73,6 +73,17 @@ export const getHubPostUrl = (subredditName: string, postId: string) =>
 export const isHubPost = async (postId: string) =>
   (await redis.get(hubPostKey)) === postId;
 
+export const clearHubPostReference = async (postId: string): Promise<void> => {
+  const transaction = await redis.watch(hubPostKey);
+  if ((await redis.get(hubPostKey)) !== postId) {
+    await transaction.unwatch();
+    return;
+  }
+  await transaction.multi();
+  await transaction.del(hubPostKey);
+  await transaction.exec();
+};
+
 export const getRecentJourneySummaries = async (
   subredditName: string,
   limit = 8

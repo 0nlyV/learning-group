@@ -2,6 +2,13 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.1 — 2026-09-10
+
+- Added a two-step participant progress reset, race-safe progress updates, semantic progress bars, and generic unsupported-client fallback text.
+- Added automatic deletion of journey, progress, counts, and Portal-reference data when an associated Reddit post is deleted.
+- Stopped storing moderator usernames, pruned removed-session progress and counts after edits, and rejected over-limit post attribution instead of truncating moderator-authored content.
+- Restyled the Archive action as a low-prominence red outline.
+
 ## 1.1.0 — 2026-09-10
 
 - Made active and concluded journey collections collapsible, with active open and concluded closed by default.

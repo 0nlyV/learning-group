@@ -24,12 +24,14 @@ Archived journeys are retired, read-only references. They can still be opened, a
 
 **Join the discussion** remains hidden until all sessions are complete. **Close learning view** is always available and returns to the post without changing progress.
 
+To start over, choose **Reset my progress**, then **Confirm reset**. This removes your saved progress and participation record for that journey and adjusts the aggregate totals.
+
 ## What other people can see
 
 Other participants and moderators can see aggregate participation and per-session completion totals. They cannot use Learning Group to see a list of which accounts completed a particular session. Your personal completion state is restored only when you use the same Reddit account.
 
 ## Accessibility and appearance
 
-The interface follows the device or Reddit light/dark appearance setting, adapts to narrow screens, and uses labelled controls, generous spacing, high-contrast colours, and Atkinson Hyperlegible Next. Participants who enable reduced motion in their device settings do not receive unnecessary motion effects.
+The interface follows the device or Reddit light/dark appearance setting, adapts to narrow screens, and uses labelled controls, semantic progress bars, generous spacing, high-contrast colours, and Atkinson Hyperlegible Next. Participants who enable reduced motion in their device settings do not receive unnecessary motion effects.
 
 [Return to documentation](./)

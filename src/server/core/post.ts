@@ -1,4 +1,8 @@
 import { EntrypointHeight, reddit } from '@devvit/web/server';
+import {
+  journeyAttributionFits,
+  journeyAttributionText,
+} from '../../shared/attribution';
 import { starterJourney, type Journey } from '../../shared/journey';
 
 export const HUB_POST_TITLE = 'Learning Group · Portal';
@@ -10,26 +14,6 @@ const postStyles = {
   height: EntrypointHeight.TALL,
 };
 
-const journeyAttributionText = (title: string, journey: Journey) =>
-  [
-    title,
-    journey.label,
-    journey.title,
-    journey.subtitle,
-    journey.description,
-    ...journey.resources.flatMap((resource) => [resource.title, resource.url]),
-    journey.finalPage.label,
-    journey.finalPage.pendingTitle,
-    journey.finalPage.pendingDescription,
-    journey.finalPage.completedTitle,
-    journey.finalPage.completedDescription,
-    ...journey.stages.flatMap((stage) => [
-      stage.title,
-      stage.reading,
-      stage.prompt,
-    ]),
-  ].join('\n\n');
-
 export const createPost = async ({
   title = 'Learning Group · A community learning journey',
   journey = starterJourney,
@@ -39,6 +23,12 @@ export const createPost = async ({
   journey?: Journey;
   runAsUser?: boolean;
 } = {}) => {
+  if (runAsUser && !journeyAttributionFits(title, journey)) {
+    throw new Error(
+      'The combined journey content is too long to create a Reddit post.'
+    );
+  }
+
   return await reddit.submitCustomPost({
     title,
     entry: 'default',
@@ -51,6 +41,9 @@ export const createPost = async ({
           },
         }
       : {}),
+    textFallback: {
+      text: 'Open this Learning Group journey in modern Reddit to follow its sessions, track progress, and join the discussion.',
+    },
   });
 };
 

@@ -92,3 +92,10 @@ export type ProgressResponse = {
   participantCount: number;
   completionCounts: Record<string, number>;
 };
+
+export type ProgressResetResponse = {
+  type: 'progress-reset';
+  completedStageIds: [];
+  participantCount: number;
+  completionCounts: Record<string, number>;
+};

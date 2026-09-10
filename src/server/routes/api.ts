@@ -13,6 +13,7 @@ import type {
   JourneyStatusRequest,
   JourneyStatusResponse,
   ProgressRequest,
+  ProgressResetResponse,
   ProgressResponse,
 } from '../../shared/api';
 import { starterJourney } from '../../shared/journey';
@@ -36,6 +37,8 @@ import { createPost, HUB_POST_KIND } from '../core/post';
 import {
   getCommunityProgress,
   getCompletedStages,
+  pruneInactiveStageData,
+  resetUserProgress,
   setStageProgress,
 } from '../core/progress';
 
@@ -223,7 +226,6 @@ api.post('/hub/journey-status', async (c) => {
   const concludedAt = await setJourneyConclusion({
     postId: body.postId,
     concluded: body.concluded,
-    updatedBy: editor.moderator.username,
   });
 
   return c.json<JourneyStatusResponse>({
@@ -259,7 +261,6 @@ api.post('/hub/journey-archive', async (c) => {
 
   const archivedAt = await setJourneyArchive({
     postId: body.postId,
-    archivedBy: editor.moderator.username,
   });
 
   return c.json<JourneyArchiveResponse>({
@@ -438,8 +439,13 @@ api.post('/editor/save', async (c) => {
   await saveJourney({
     postId: post.id,
     journey: journey.value,
-    updatedBy: editor.moderator.username,
   });
+  if (operation === 'edit') {
+    await pruneInactiveStageData(
+      post.id,
+      new Set(journey.value.stages.map((stage) => stage.id))
+    );
+  }
 
   return c.json<JourneyEditorSaveResponse>({
     status: 'ok',
@@ -479,4 +485,31 @@ api.post('/progress', async (c) => {
   });
 
   return c.json<ProgressResponse>({ type: 'progress', ...progress });
+});
+
+api.post('/progress/reset', async (c) => {
+  const postId = context.postId;
+  const username = await reddit.getCurrentUsername();
+  if (!postId || !username || !(await hasJourney(postId))) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: 'A signed-in journey is required.' },
+      400
+    );
+  }
+
+  const journey = await getJourney(postId);
+  const community = await resetUserProgress(postId, username);
+  const completionCounts = Object.fromEntries(
+    journey.stages.map((stage) => [
+      stage.id,
+      community.completionCounts[stage.id] ?? 0,
+    ])
+  );
+
+  return c.json<ProgressResetResponse>({
+    type: 'progress-reset',
+    completedStageIds: [],
+    participantCount: community.participantCount,
+    completionCounts,
+  });
 });

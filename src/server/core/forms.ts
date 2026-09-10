@@ -1,5 +1,6 @@
 import type { Form, FormField } from '@devvit/web/shared';
 import { randomUUID } from 'node:crypto';
+import { journeyAttributionFits } from '../../shared/attribution';
 import {
   MAX_JOURNEY_RESOURCES,
   MAX_JOURNEY_STAGES,
@@ -440,7 +441,14 @@ const webUrl = (value: unknown, label: string): ParseResult<string> => {
     ) {
       throw new Error('Unsupported URL');
     }
-    return { ok: true, value: parsed.toString() };
+    const normalized = parsed.toString();
+    if (normalized.length > 2048) {
+      return {
+        ok: false,
+        message: `${label} must be 2048 characters or fewer after URL normalization.`,
+      };
+    }
+    return { ok: true, value: normalized };
   } catch {
     return {
       ok: false,
@@ -550,22 +558,32 @@ export const parseJourneySessions = (
   );
   if (!finalPageCompletedDescription.ok) return finalPageCompletedDescription;
 
+  const journey: Journey = {
+    label: details.label,
+    title: details.title,
+    subtitle: details.subtitle,
+    description: details.description,
+    resources,
+    finalPage: {
+      label: finalPageLabel.value,
+      pendingTitle: finalPagePendingTitle.value,
+      pendingDescription: finalPagePendingDescription.value,
+      completedTitle: finalPageCompletedTitle.value,
+      completedDescription: finalPageCompletedDescription.value,
+    },
+    stages,
+  };
+
+  if (!journeyAttributionFits(details.postTitle, journey)) {
+    return {
+      ok: false,
+      message:
+        'The combined journey content is too long. Shorten one or more links, descriptions, session instructions, or prompts.',
+    };
+  }
+
   return {
     ok: true,
-    value: {
-      label: details.label,
-      title: details.title,
-      subtitle: details.subtitle,
-      description: details.description,
-      resources,
-      finalPage: {
-        label: finalPageLabel.value,
-        pendingTitle: finalPagePendingTitle.value,
-        pendingDescription: finalPagePendingDescription.value,
-        completedTitle: finalPageCompletedTitle.value,
-        completedDescription: finalPageCompletedDescription.value,
-      },
-      stages,
-    },
+    value: journey,
   };
 };

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import type {
   InitResponse,
   ProgressRequest,
+  ProgressResetResponse,
   ProgressResponse,
 } from '../../shared/api';
 import type { Journey } from '../../shared/journey';
@@ -34,6 +35,7 @@ const initialState: JourneyState = {
 
 export const useJourney = () => {
   const [state, setState] = useState<JourneyState>(initialState);
+  const [resettingProgress, setResettingProgress] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -110,5 +112,36 @@ export const useJourney = () => {
     );
   }, [state.completedStageIds.length, state.journey]);
 
-  return { ...state, percentage, toggleStage };
+  const resetProgress = useCallback(async () => {
+    setResettingProgress(true);
+    setState((current) => ({ ...current, error: null }));
+    try {
+      const response = await fetch('/api/progress/reset', { method: 'POST' });
+      if (!response.ok) throw new Error('Your progress could not be reset.');
+      const data: ProgressResetResponse = await response.json();
+      setState((current) => ({
+        ...current,
+        completedStageIds: data.completedStageIds,
+        participantCount: data.participantCount,
+        completionCounts: data.completionCounts,
+      }));
+      return true;
+    } catch (error) {
+      setState((current) => ({
+        ...current,
+        error: error instanceof Error ? error.message : 'Something went wrong.',
+      }));
+      return false;
+    } finally {
+      setResettingProgress(false);
+    }
+  }, []);
+
+  return {
+    ...state,
+    percentage,
+    resettingProgress,
+    toggleStage,
+    resetProgress,
+  };
 };

@@ -17,7 +17,7 @@ The community chooses the material and writes every instruction and reflection p
 
 ## For moderators
 
-Installation creates a **Learning Group · Portal** custom post. Its header pairs the host subreddit with the Learning Group Portal name, and moderators can start a new journey from the prominent control at the top. Individual journey previews and expanded views also identify their host subreddit. A compact participant hint follows the journey collection and stays collapsed by default for moderators, keeping their working path short. The subreddit menu command **Open Learning Group Portal** returns to it or recreates it if necessary.
+Installation creates a **Learning Group · Portal** custom post. Its header pairs the host subreddit with the Learning Group Portal name, and moderators can start a new journey from the prominent control at the top. Individual journey previews and expanded views also identify their host subreddit. A compact participant hint sits immediately above the journey listings and stays collapsed by default for moderators, keeping their working path short. The subreddit menu command **Open Learning Group Portal** returns to it or recreates it if necessary.
 
 From the Portal, moderators can:
 

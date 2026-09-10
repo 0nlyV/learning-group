@@ -256,6 +256,14 @@ const Hub = () => {
           ) : null}
         </div>
 
+        <details className="hub-participant-guide" open={!state.isModerator}>
+          <summary>For participants</summary>
+          <p className="hub-participant-guide-content">
+            Choose a journey, complete its sessions at your pace, then join the
+            post discussion.
+          </p>
+        </details>
+
         {activeJourneys.length ? (
           <section
             className="hub-journey-group"
@@ -302,14 +310,6 @@ const Hub = () => {
           </section>
         ) : null}
       </section>
-
-      <details className="hub-participant-guide" open={!state.isModerator}>
-        <summary>For participants</summary>
-        <p className="hub-participant-guide-content">
-          Choose a journey, complete its sessions at your pace, then join the
-          post discussion.
-        </p>
-      </details>
     </main>
   );
 };

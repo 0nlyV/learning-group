@@ -2,6 +2,10 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.0.6 — 2026-09-10
+
+- Positioned the compact participant guidance immediately above the active journey collection.
+
 ## 1.0.5 — 2026-09-10
 
 - Removed the Portal introduction panel so the journey collection follows the community header directly.

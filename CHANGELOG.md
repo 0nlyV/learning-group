@@ -1,6 +1,6 @@
 # Changelog
 
-Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0 after private prototyping under a different app ID.
+Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
 ## 1.0.0 — 2026-09-10
 

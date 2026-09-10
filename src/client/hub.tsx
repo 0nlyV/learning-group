@@ -228,16 +228,13 @@ const Hub = () => {
     <main className="hub-shell">
       <div className="grain" aria-hidden="true" />
       <header className="hub-header">
-        <div className="brand-mark" aria-label="Learning Group Portal">
+        <div className="brand-mark">
           <BrandIcon />
           <span className="hub-community-name">r/{state.subredditName}</span>
-          <span className="hub-brand-divider" aria-hidden="true">
-            ·
-          </span>
-          <span>Learning Group</span>
+          <span className="hub-product-name">Learning Group Portal</span>
         </div>
-        <div className="hub-header-actions">
-          {state.isModerator ? (
+        {state.isModerator ? (
+          <div className="hub-header-actions">
             <button
               className="hub-header-create"
               disabled={editorOpen !== null}
@@ -247,9 +244,8 @@ const Hub = () => {
               <span>Create new journey</span>
               <span aria-hidden="true">＋</span>
             </button>
-          ) : null}
-          <span className="hub-badge">Portal</span>
-        </div>
+          </div>
+        ) : null}
       </header>
 
       <section className="hub-intro">
@@ -288,11 +284,11 @@ const Hub = () => {
         ) : (
           <div className="hub-empty-state">
             <p className="eyebrow">An open shelf</p>
-            <h3>No journeys have been published yet.</h3>
+            <h3>The first journey will appear here.</h3>
             <p>
               {state.isModerator
-                ? 'Use Create new journey above to start the community’s first guided learning journey.'
-                : 'A moderator can create the first guided learning journey from this portal.'}
+                ? 'Use Create new journey above to begin.'
+                : 'A community moderator can add one—check back soon.'}
             </p>
           </div>
         )}
@@ -312,18 +308,11 @@ const Hub = () => {
       </section>
 
       <details className="hub-participant-guide" open={!state.isModerator}>
-        <summary>How Learning Group works for participants</summary>
-        <div className="hub-participant-guide-content">
-          <p>
-            Choose a guided journey, explore it at your own pace, and return to
-            its Reddit discussion with something worth sharing.
-          </p>
-          <ol>
-            <li>Open a journey selected by your community.</li>
-            <li>Complete each learning session when you are ready.</li>
-            <li>Join the post discussion after finishing the journey.</li>
-          </ol>
-        </div>
+        <summary>For participants</summary>
+        <p className="hub-participant-guide-content">
+          Choose a journey, complete its sessions at your pace, then join the
+          post discussion.
+        </p>
       </details>
     </main>
   );

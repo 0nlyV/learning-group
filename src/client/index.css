@@ -417,8 +417,10 @@ h1 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.hub-brand-divider {
-  color: rgba(255, 255, 255, 0.5);
+.hub-product-name {
+  padding-left: 9px;
+  border-left: 1px solid rgba(255, 255, 255, 0.28);
+  white-space: nowrap;
 }
 .hub-header-actions {
   display: flex;
@@ -448,17 +450,6 @@ h1 {
   font-size: 10px;
   font-weight: 790;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.hub-badge {
-  border: 1px solid var(--color-portal-accent);
-  border-radius: 999px;
-  padding: 7px 12px;
-  color: var(--color-portal-accent-text);
-  background: var(--color-portal-accent);
-  font-size: 13px;
-  font-weight: 760;
-  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 .hub-intro {
@@ -645,22 +636,12 @@ h1 {
   font-weight: 720;
 }
 .hub-participant-guide-content {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.75fr);
-  gap: 28px;
   border-top: 1px solid var(--color-panel-border);
   padding: 20px;
   color: var(--color-section-copy);
 }
-.hub-participant-guide-content p,
-.hub-participant-guide-content ol {
+.hub-participant-guide-content {
   margin: 0;
-}
-.hub-participant-guide-content ol {
-  padding-left: 22px;
-}
-.hub-participant-guide-content li + li {
-  margin-top: 6px;
 }
 
 .app-header {
@@ -1071,8 +1052,7 @@ h1 {
   .hub-header-actions {
     justify-content: space-between;
   }
-  .hub-journey-grid,
-  .hub-participant-guide-content {
+  .hub-journey-grid {
     grid-template-columns: 1fr;
   }
   .hub-section-heading {
@@ -1127,6 +1107,28 @@ h1 {
   .close-button {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .hub-header .brand-mark {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    column-gap: 9px;
+    row-gap: 0;
+  }
+  .hub-header .brand-icon {
+    grid-row: 1 / span 2;
+  }
+  .hub-community-name {
+    max-width: 100%;
+  }
+  .hub-product-name {
+    grid-column: 2;
+    padding-left: 0;
+    border-left: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 12px;
   }
 }
 

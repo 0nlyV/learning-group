@@ -2,6 +2,12 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.0.3 — 2026-09-10
+
+- Consolidated the Portal header into the app icon, host subreddit, product name, and moderator creation control.
+- Clarified the audience-aware empty-shelf message for communities without journeys.
+- Condensed the participant guide into a single short instruction.
+
 ## 1.0.2 — 2026-09-10
 
 - Added the host subreddit name to the Portal brand header.

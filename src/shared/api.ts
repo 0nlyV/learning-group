@@ -53,6 +53,7 @@ export type HubJourneySummary = {
 
 export type HubInitResponse = {
   type: 'hub';
+  subredditName: string;
   isModerator: boolean;
   journeys: HubJourneySummary[];
 };

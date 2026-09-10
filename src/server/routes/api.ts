@@ -165,6 +165,7 @@ api.get('/hub/init', async (c) => {
   ]);
   return c.json<HubInitResponse>({
     type: 'hub',
+    subredditName,
     isModerator: Boolean(moderator),
     journeys,
   });

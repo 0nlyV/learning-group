@@ -13,6 +13,7 @@ import { runJourneyEditor } from './journey-editor';
 type HubState = {
   loading: boolean;
   error: string | null;
+  subredditName: string;
   isModerator: boolean;
   journeys: HubJourneySummary[];
 };
@@ -20,6 +21,7 @@ type HubState = {
 const initialState: HubState = {
   loading: true,
   error: null,
+  subredditName: '',
   isModerator: false,
   journeys: [],
 };
@@ -57,6 +59,7 @@ const Hub = () => {
         setState({
           loading: false,
           error: null,
+          subredditName: data.subredditName,
           isModerator: data.isModerator,
           journeys: data.journeys,
         });
@@ -227,52 +230,38 @@ const Hub = () => {
       <header className="hub-header">
         <div className="brand-mark" aria-label="Learning Group Portal">
           <BrandIcon />
+          <span className="hub-community-name">r/{state.subredditName}</span>
+          <span className="hub-brand-divider" aria-hidden="true">
+            ·
+          </span>
           <span>Learning Group</span>
         </div>
-        <span className="hub-badge">Portal</span>
-      </header>
-
-      <section className="hub-intro">
-        <div>
-          <p className="eyebrow">Community learning directory</p>
-          <h1>Learn something worth discussing.</h1>
-          <p className="hub-lead">
-            Choose a guided journey, explore it at your own pace, and return to
-            its Reddit discussion with something worth sharing.
-          </p>
-        </div>
-
-        <aside className="hub-guide" aria-label="How Learning Group works">
-          <p className="eyebrow">How it works</p>
-          <ol>
-            <li>Open a journey selected by your community.</li>
-            <li>Complete each learning session when you are ready.</li>
-            <li>Join the post discussion after finishing the journey.</li>
-          </ol>
+        <div className="hub-header-actions">
           {state.isModerator ? (
             <button
-              className="primary-button hub-create-button"
+              className="hub-header-create"
               disabled={editorOpen !== null}
               onClick={() => void openEditor('create')}
             >
-              Create new journey
-              <span aria-hidden="true">→</span>
+              <span className="hub-moderator-label">Moderator</span>
+              <span>Create new journey</span>
+              <span aria-hidden="true">＋</span>
             </button>
           ) : null}
-        </aside>
+          <span className="hub-badge">Portal</span>
+        </div>
+      </header>
+
+      <section className="hub-intro">
+        <h1>Where community learn and discuss.</h1>
       </section>
 
       <section className="hub-journeys" aria-labelledby="hub-journey-heading">
         <div className="hub-section-heading">
-          <div>
-            <p className="eyebrow">From this community</p>
-            <h2 id="hub-journey-heading">Learning journeys</h2>
-          </div>
-          <p>
-            {state.journeys.length
-              ? `${activeJourneys.length} active · ${concludedJourneys.length} concluded`
-              : 'The first journey is waiting to be created'}
-          </p>
+          <h2 id="hub-journey-heading">Learning journeys</h2>
+          {state.journeys.length ? (
+            <p>{`${activeJourneys.length} active · ${concludedJourneys.length} concluded`}</p>
+          ) : null}
         </div>
 
         {activeJourneys.length ? (
@@ -321,6 +310,21 @@ const Hub = () => {
           </section>
         ) : null}
       </section>
+
+      <details className="hub-participant-guide" open={!state.isModerator}>
+        <summary>How Learning Group works for participants</summary>
+        <div className="hub-participant-guide-content">
+          <p>
+            Choose a guided journey, explore it at your own pace, and return to
+            its Reddit discussion with something worth sharing.
+          </p>
+          <ol>
+            <li>Open a journey selected by your community.</li>
+            <li>Complete each learning session when you are ready.</li>
+            <li>Join the post discussion after finishing the journey.</li>
+          </ol>
+        </div>
+      </details>
     </main>
   );
 };

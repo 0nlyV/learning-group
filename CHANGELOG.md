@@ -2,6 +2,13 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.0.2 — 2026-09-10
+
+- Added the host subreddit name to the Portal brand header.
+- Moved the moderator-only journey creation control to the top of the Portal.
+- Simplified the Portal introduction, journey heading, and empty-state messaging to remove repetition.
+- Moved participant guidance below the journey collection and collapsed it by default for moderators to shorten their working path.
+
 ## 1.0.1 — 2026-09-10
 
 - Replaced temporary letter and four-panel marks with the official Learning Group speech-and-book icon across the Portal, embedded post preview, and expanded journey interface.

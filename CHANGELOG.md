@@ -2,6 +2,11 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.0.4 — 2026-09-10
+
+- Shortened the Portal moderator control to “MOD: Create new journey.”
+- Added the host subreddit name to embedded journey previews and expanded journey views.
+
 ## 1.0.3 — 2026-09-10
 
 - Consolidated the Portal header into the app icon, host subreddit, product name, and moderator creation control.

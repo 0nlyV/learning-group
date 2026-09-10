@@ -240,7 +240,7 @@ const Hub = () => {
               disabled={editorOpen !== null}
               onClick={() => void openEditor('create')}
             >
-              <span className="hub-moderator-label">Moderator</span>
+              <span className="hub-moderator-label">MOD:</span>
               <span>Create new journey</span>
               <span aria-hidden="true">＋</span>
             </button>

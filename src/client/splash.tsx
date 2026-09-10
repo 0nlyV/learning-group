@@ -8,6 +8,7 @@ import './index.css';
 const Splash = () => {
   const {
     journey,
+    subredditName,
     loading,
     error,
     completedStageIds,
@@ -39,9 +40,10 @@ const Splash = () => {
     <main className="splash-shell">
       <div className="grain" aria-hidden="true" />
       <section className="splash-copy">
-        <div className="brand-mark" aria-label="Learning Group">
+        <div className="brand-mark">
           <BrandIcon />
-          <span>Learning Group</span>
+          <span className="journey-community-name">r/{subredditName}</span>
+          <span className="journey-product-name">Learning Group</span>
         </div>
         <p className="eyebrow">{journey.label}</p>
         <h1>{journey.title}</h1>

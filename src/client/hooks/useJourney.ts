@@ -11,6 +11,7 @@ type JourneyState = {
   savingStageId: string | null;
   error: string | null;
   username: string;
+  subredditName: string;
   journey: Journey | null;
   postUrl: string;
   completedStageIds: string[];
@@ -23,6 +24,7 @@ const initialState: JourneyState = {
   savingStageId: null,
   error: null,
   username: '',
+  subredditName: '',
   journey: null,
   postUrl: '',
   completedStageIds: [],
@@ -44,6 +46,7 @@ export const useJourney = () => {
           savingStageId: null,
           error: null,
           username: data.username,
+          subredditName: data.subredditName,
           journey: data.journey,
           postUrl: data.postUrl,
           completedStageIds: data.completedStageIds,

@@ -138,6 +138,7 @@ api.get('/init', async (c) => {
   return c.json<InitResponse>({
     type: 'init',
     username,
+    subredditName,
     journey,
     postUrl: `https://www.reddit.com/r/${encodeURIComponent(subredditName)}/comments/${postId.slice(3)}`,
     completedStageIds,

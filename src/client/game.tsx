@@ -10,6 +10,7 @@ const JourneyApp = () => {
     journey,
     postUrl,
     username,
+    subredditName,
     loading,
     error,
     completedStageIds,
@@ -56,9 +57,10 @@ const JourneyApp = () => {
     <main className="app-shell">
       <div className="grain" aria-hidden="true" />
       <header className="app-header">
-        <div className="brand-mark" aria-label="Learning Group">
+        <div className="brand-mark">
           <BrandIcon />
-          <span>Learning Group</span>
+          <span className="journey-community-name">r/{subredditName}</span>
+          <span className="journey-product-name">Learning Group</span>
         </div>
         <span className="reader-chip">@{username}</span>
       </header>

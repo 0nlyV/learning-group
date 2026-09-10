@@ -3,6 +3,7 @@ import type { Journey } from './journey';
 export type InitResponse = {
   type: 'init';
   username: string;
+  subredditName: string;
   journey: Journey;
   postUrl: string;
   completedStageIds: string[];

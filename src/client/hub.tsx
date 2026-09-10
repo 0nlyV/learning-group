@@ -6,6 +6,7 @@ import type {
   HubJourneySummary,
   JourneyStatusResponse,
 } from '../shared/api';
+import { BrandIcon } from './brand-icon';
 import './index.css';
 import { runJourneyEditor } from './journey-editor';
 
@@ -225,12 +226,7 @@ const Hub = () => {
       <div className="grain" aria-hidden="true" />
       <header className="hub-header">
         <div className="brand-mark" aria-label="Learning Group Portal">
-          <span className="portal-brand-icon" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <span />
-          </span>
+          <BrandIcon />
           <span>Learning Group</span>
         </div>
         <span className="hub-badge">Portal</span>

@@ -245,14 +245,22 @@ button {
 }
 
 .brand-icon {
-  display: grid;
-  width: 30px;
-  height: 34px;
-  place-items: center;
-  border: 1px solid var(--color-accent-green);
-  border-radius: 2px 9px 9px 2px;
-  font-size: 16px;
-  font-weight: 700;
+  display: block;
+  overflow: hidden;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent-green) 55%, transparent);
+  border-radius: 9px;
+  background: #1d4738;
+  box-shadow: 0 3px 12px rgba(22, 45, 35, 0.18);
+}
+.brand-icon-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .splash-copy,
@@ -390,24 +398,11 @@ h1 {
 .hub-header .hub-badge {
   z-index: 1;
 }
-.portal-brand-icon {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.38);
-  border-radius: 8px;
-  padding: 5px;
-  background: rgba(255, 255, 255, 0.08);
-}
-.portal-brand-icon span {
-  border-radius: 2px;
-  background: var(--color-portal-accent);
-}
-.portal-brand-icon span:nth-child(2),
-.portal-brand-icon span:nth-child(3) {
-  background: rgba(255, 255, 255, 0.72);
+.hub-header .brand-icon {
+  border-color: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 0 0 2px rgba(242, 193, 78, 0.24),
+    0 4px 14px rgba(0, 0, 0, 0.24);
 }
 .hub-badge {
   border: 1px solid var(--color-portal-accent);

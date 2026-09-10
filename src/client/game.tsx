@@ -1,6 +1,7 @@
 import { exitExpandedMode, navigateTo } from '@devvit/web/client';
 import { StrictMode, type CSSProperties, type MouseEvent } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrandIcon } from './brand-icon';
 import { useJourney } from './hooks/useJourney';
 import './index.css';
 
@@ -55,10 +56,8 @@ const JourneyApp = () => {
     <main className="app-shell">
       <div className="grain" aria-hidden="true" />
       <header className="app-header">
-        <div className="brand-mark">
-          <span className="brand-icon" aria-hidden="true">
-            L
-          </span>
+        <div className="brand-mark" aria-label="Learning Group">
+          <BrandIcon />
           <span>Learning Group</span>
         </div>
         <span className="reader-chip">@{username}</span>

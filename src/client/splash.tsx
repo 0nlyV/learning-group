@@ -1,6 +1,7 @@
 import { requestExpandedMode } from '@devvit/web/client';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrandIcon } from './brand-icon';
 import { useJourney } from './hooks/useJourney';
 import './index.css';
 
@@ -39,9 +40,7 @@ const Splash = () => {
       <div className="grain" aria-hidden="true" />
       <section className="splash-copy">
         <div className="brand-mark" aria-label="Learning Group">
-          <span className="brand-icon" aria-hidden="true">
-            L
-          </span>
+          <BrandIcon />
           <span>Learning Group</span>
         </div>
         <p className="eyebrow">{journey.label}</p>

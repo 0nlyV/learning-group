@@ -31,7 +31,7 @@ Every completed configuration creates a separate journey post under the signed-i
 
 ## Accessibility and appearance
 
-Learning Group follows the device or Reddit light and dark appearance setting. It uses high-contrast colours, responsive layouts, labelled controls, generous spacing, and the locally bundled Atkinson Hyperlegible Next typeface for clearer character recognition. Reduced-motion preferences are respected. The Portal uses its own indigo-and-gold palette, four-panel Portal mark, and distinct active and concluded card treatments.
+Learning Group follows the device or Reddit light and dark appearance setting. It uses high-contrast colours, responsive layouts, labelled controls, generous spacing, and the locally bundled Atkinson Hyperlegible Next typeface for clearer character recognition. Reduced-motion preferences are respected. The Portal uses its own indigo-and-gold palette, the Learning Group speech-and-book icon, and distinct active and concluded card treatments.
 
 ## Data and privacy
 

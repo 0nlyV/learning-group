@@ -9,12 +9,34 @@ type PreviewState = {
   loading: boolean;
   error: string | null;
   subredditName: string;
+  activeJourneyCount: number;
+  concludedJourneyCount: number;
 };
 
 const initialState: PreviewState = {
   loading: true,
   error: null,
   subredditName: '',
+  activeJourneyCount: 0,
+  concludedJourneyCount: 0,
+};
+
+const journeySnapshot = ({
+  loading,
+  activeJourneyCount,
+  concludedJourneyCount,
+}: PreviewState) => {
+  if (loading) return 'Loading journey snapshot…';
+  if (activeJourneyCount === 0) {
+    return concludedJourneyCount === 0
+      ? 'No active journeys yet'
+      : `No active journeys · ${concludedJourneyCount} concluded`;
+  }
+
+  const activeLabel = `${activeJourneyCount} active ${
+    activeJourneyCount === 1 ? 'journey' : 'journeys'
+  }`;
+  return `${activeLabel} · ${concludedJourneyCount} concluded`;
 };
 
 const HubPreview = () => {
@@ -30,6 +52,8 @@ const HubPreview = () => {
           loading: false,
           error: null,
           subredditName: data.subredditName,
+          activeJourneyCount: data.activeJourneyCount,
+          concludedJourneyCount: data.concludedJourneyCount,
         });
       } catch (error) {
         setState({
@@ -37,6 +61,8 @@ const HubPreview = () => {
           error:
             error instanceof Error ? error.message : 'Something went wrong.',
           subredditName: '',
+          activeJourneyCount: 0,
+          concludedJourneyCount: 0,
         });
       }
     };
@@ -61,9 +87,12 @@ const HubPreview = () => {
         <div>
           <p className="eyebrow">Community learning</p>
           <h1 id="portal-title">Learning Group Portal</h1>
+          <p className="hub-preview-snapshot" aria-live="polite">
+            {journeySnapshot(state)}
+          </p>
           <p className="hub-preview-description">
-            Browse learning journeys and open the moderator tools in a dedicated
-            view.
+            Browse journeys at your own pace. Moderator tools are available
+            inside.
           </p>
           {state.error ? (
             <p className="hub-preview-error" role="alert">
@@ -73,7 +102,6 @@ const HubPreview = () => {
         </div>
       </section>
       <section className="hub-preview-action" aria-label="Open Portal">
-        <p>Designed for comfortable browsing without interrupting the feed.</p>
         <button
           className="hub-preview-button"
           onClick={(event) =>

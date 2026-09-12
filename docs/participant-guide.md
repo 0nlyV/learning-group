@@ -8,7 +8,7 @@ permalink: /participant-guide/
 
 ## Find a journey
 
-Open the **Learning Group · Portal** post in a participating subreddit, then select **Open Portal**. The compact post preview keeps Reddit's feed freely scrollable; the complete Portal opens in a dedicated expanded view. It groups active, concluded, and archived journeys separately and shows each journey's relevant dates, session count, and community participant count. Active journeys are expanded by default; concluded and archived collections can be opened when needed.
+Open the **Learning Group · Portal** post in a participating subreddit, then select **Open Portal**. The compact post preview shows the current active and concluded journey counts while keeping Reddit's feed freely scrollable; the complete Portal opens in a dedicated expanded view. It groups active, concluded, and archived journeys separately and shows each journey's relevant dates, session count, and community participant count. Active journeys are expanded by default; concluded and archived collections can be opened when needed.
 
 Select **Open journey** to visit its Reddit post. Every journey has its own discussion and progress record.
 

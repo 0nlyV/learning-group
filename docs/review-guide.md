@@ -9,7 +9,7 @@ permalink: /review-guide/
 This path gives Reddit reviewers and subreddit moderators a concise functional check.
 
 1. Install the newest Learning Group version on a small test subreddit and confirm that **Learning Group · Portal** is created.
-2. Use **Open Learning Group Portal** from the subreddit menu, then select **Open Portal** in its compact post preview. Confirm that scrolling over every part of this inline preview continues moving Reddit's feed before entering the expanded Portal.
+2. Use **Open Learning Group Portal** from the subreddit menu, then select **Open Portal** in its compact post preview. Confirm that its active and concluded journey counts match the expanded Portal and that scrolling over every part of the inline preview continues moving Reddit's feed.
 3. As a moderator, create a journey with one session and optionally one resource URL.
 4. Open the created journey post. Confirm that scrolling over its inline preview continues moving Reddit's feed, then enter the expanded learning view.
 5. Confirm that **Join the discussion** is absent before completion.

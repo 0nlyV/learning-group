@@ -25,6 +25,8 @@ test('long Portal content is reserved for expanded mode', () => {
     preview,
     /requestExpandedMode\(event\.nativeEvent, 'hubExpanded'\)/
   );
+  assert.match(preview, /activeJourneyCount/);
+  assert.match(preview, /Moderator tools are available\s+inside/);
 });
 
 test('inline documents use a bounded, vertically pannable surface', () => {

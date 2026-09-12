@@ -473,6 +473,22 @@ h1 {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+.hub-preview-snapshot {
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 16px 0 0;
+  border: 1px solid rgba(242, 193, 78, 0.42);
+  border-radius: 999px;
+  padding: 6px 11px;
+  color: var(--color-portal-accent);
+  background: rgba(0, 0, 0, 0.12);
+  font-size: 13px;
+  font-weight: 720;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .hub-preview-error {
   margin: 10px 0 0;
   color: #ffd9d1;
@@ -484,12 +500,6 @@ h1 {
   border-radius: 14px;
   padding: clamp(18px, 3vw, 26px);
   background: rgba(255, 255, 255, 0.08);
-}
-.hub-preview-action p {
-  margin: 0 0 16px;
-  color: rgba(255, 255, 255, 0.76);
-  font-size: 13px;
-  line-height: 1.5;
 }
 .hub-preview-button {
   display: flex;
@@ -1416,12 +1426,12 @@ h1 {
   .inline-document .splash-subtitle {
     -webkit-line-clamp: 1;
   }
+  .hub-preview-snapshot {
+    margin-top: 10px;
+  }
   .inline-document .splash-action,
   .hub-preview-action {
     padding: 12px 14px;
-  }
-  .hub-preview-action p {
-    display: none;
   }
 }
 

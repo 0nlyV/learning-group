@@ -209,9 +209,17 @@ api.get('/hub/preview', async (c) => {
     );
   }
 
+  const journeys = await getRecentJourneySummaries(subredditName, 100);
+
   return c.json<HubPreviewResponse>({
     type: 'hub-preview',
     subredditName,
+    activeJourneyCount: journeys.filter(
+      (journey) => !journey.concludedAt && !journey.archivedAt
+    ).length,
+    concludedJourneyCount: journeys.filter(
+      (journey) => journey.concludedAt && !journey.archivedAt
+    ).length,
   });
 });
 

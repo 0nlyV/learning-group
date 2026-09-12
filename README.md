@@ -2,7 +2,7 @@
 
 Learning Group turns an article, book, video, podcast, course, study guide, or other shared resource into a guided community learning journey on Reddit. It allows the community to set the material and configure instructions and reflection prompts.
 
-Participants move through configurable sessions at their own pace, keep personal progress, see lightweight community participation totals, and return to the Reddit discussion after completing the journey. Each journey has its own custom post, while the persistent **Learning Group Portal** provides one intuitive and centralised place to discover active, concluded, and archived journeys. Compact post previews open longer journeys and the Portal in Reddit's Expanded Mode so feed scrolling remains uninterrupted.
+Participants move through configurable sessions at their own pace, keep personal progress, see lightweight community participation totals, and return to the Reddit discussion after completing the journey. Each journey has its own custom post, while the persistent **Learning Group Portal** provides one intuitive and centralised place to discover active, concluded, and archived journeys. Its compact preview summarises active and concluded journeys before opening longer content in Reddit's Expanded Mode, so feed scrolling remains uninterrupted.
 
 Learning Group has no advertising, payments, rankings, streak pressure, or external accounts.
 

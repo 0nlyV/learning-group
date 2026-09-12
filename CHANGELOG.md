@@ -2,6 +2,11 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.4 — 2026-09-12
+
+- Added active and concluded journey counts to the compact Portal preview, including a clear empty state.
+- Clarified that the expanded Portal contains both participant journeys and moderator tools without adding inline scrolling.
+
 ## 1.1.3 — 2026-09-12
 
 - Replaced the full inline Portal with a bounded preview that opens the complete dashboard only after the user selects **Open Portal**.

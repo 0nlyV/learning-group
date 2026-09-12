@@ -2,6 +2,11 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.7 — 2026-09-13
+
+- Reworked the compact Portal journey summary as larger, unboxed informational text so it cannot be mistaken for an interactive control.
+- Smoothed the pointer-hover guidance into a clean crossfade while preserving reduced-motion behavior.
+
 ## 1.1.6 — 2026-09-13
 
 - Matched the compact Portal artwork directly to the Learning Group icon and aligned its subtle light halo with the flame.

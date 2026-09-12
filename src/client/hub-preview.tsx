@@ -143,6 +143,9 @@ const HubPreview = () => {
             <span className="hub-preview-button-label is-alternate">
               {alternateButtonLabel}
             </span>
+            <span className="hub-preview-button-label is-hover">
+              {alternateButtonLabel}
+            </span>
           </span>
         </button>
       </section>

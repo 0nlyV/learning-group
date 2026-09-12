@@ -38,10 +38,17 @@ test('long Portal content is reserved for expanded mode', () => {
   const css = readProjectFile('src/client/index.css');
   assert.match(css, /hub-preview-primary-label 15s/);
   assert.match(css, /prefers-reduced-motion: reduce/);
+  const snapshotStyle = css.match(
+    /\.hub-preview-snapshot\s*\{([\s\S]*?)\}/
+  )?.[1];
+  assert.ok(snapshotStyle);
+  assert.match(snapshotStyle, /font-size: clamp\(16px, 2vw, 19px\)/);
+  assert.doesNotMatch(snapshotStyle, /border|background|cursor/);
   assert.match(
     css,
-    /hub-preview-button:hover[\s\S]*is-alternate[\s\S]*animation: none/
+    /hub-preview-button-label\.is-hover[\s\S]*transition: opacity 360ms ease/
   );
+  assert.match(css, /hub-preview-button:hover[\s\S]*is-hover/);
 });
 
 test('inline documents use a bounded, vertically pannable surface', () => {

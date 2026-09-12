@@ -495,18 +495,14 @@ h1 {
   -webkit-line-clamp: 2;
 }
 .hub-preview-snapshot {
-  width: fit-content;
   max-width: 100%;
   overflow: hidden;
   margin: 16px 0 0;
-  border: 1px solid rgba(242, 193, 78, 0.42);
-  border-radius: 999px;
-  padding: 6px 11px;
   color: var(--color-portal-accent);
-  background: rgba(0, 0, 0, 0.12);
-  font-size: 13px;
-  font-weight: 720;
-  line-height: 1.25;
+  font-size: clamp(16px, 2vw, 19px);
+  font-weight: 680;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -588,15 +584,16 @@ h1 {
   opacity: 0;
   animation: hub-preview-alternate-label 15s ease-in-out infinite;
 }
+.hub-preview-button-label.is-hover {
+  z-index: 2;
+  opacity: 0;
+  background: var(--color-portal-accent);
+  transition: opacity 360ms ease;
+}
 .hub-preview-button:hover {
   filter: brightness(1.06);
 }
-.hub-preview-button:hover .hub-preview-button-label.is-primary {
-  animation: none;
-  opacity: 0;
-}
-.hub-preview-button:hover .hub-preview-button-label.is-alternate {
-  animation: none;
+.hub-preview-button:hover .hub-preview-button-label.is-hover {
   opacity: 1;
 }
 @keyframes hub-preview-primary-label {
@@ -1566,6 +1563,9 @@ h1 {
   }
   .hub-preview-button-label.is-alternate {
     opacity: 0;
+  }
+  .hub-preview-button-label.is-hover {
+    transition: none;
   }
 }
 

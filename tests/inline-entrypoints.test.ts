@@ -32,10 +32,16 @@ test('long Portal content is reserved for expanded mode', () => {
   assert.match(preview, /Follow journeys at your own pace/);
   assert.doesNotMatch(preview, /Community learning/);
   assert.match(preview, /Gather · Unite · Share/);
+  assert.match(preview, /→ Open Portal/);
+  assert.doesNotMatch(preview, /A place for communities to learn/);
 
   const css = readProjectFile('src/client/index.css');
   assert.match(css, /hub-preview-primary-label 15s/);
   assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(
+    css,
+    /hub-preview-button:hover[\s\S]*is-alternate[\s\S]*animation: none/
+  );
 });
 
 test('inline documents use a bounded, vertically pannable surface', () => {

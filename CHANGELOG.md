@@ -2,6 +2,12 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.6 — 2026-09-13
+
+- Matched the compact Portal artwork directly to the Learning Group icon and aligned its subtle light halo with the flame.
+- Gave the decorative **Gather · Unite · Share** line more breathing room and a distinctive editorial treatment while removing the bottom-corner ring.
+- Centred and harmonised the preview actions, added hover-triggered role guidance, and removed redundant introductory copy.
+
 ## 1.1.5 — 2026-09-12
 
 - Restyled the compact Portal preview around Learning Group's forest, ivory, and ember icon palette with a faint flame-and-book motif and **Gather · Unite · Share** slogan.

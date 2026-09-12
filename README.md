@@ -2,7 +2,7 @@
 
 Learning Group turns an article, book, video, podcast, course, study guide, or other shared resource into a guided community learning journey on Reddit. It allows the community to set the material and configure instructions and reflection prompts.
 
-Participants move through configurable sessions at their own pace, keep personal progress, see lightweight community participation totals, and return to the Reddit discussion after completing the journey. Each journey has its own custom post, while the persistent **Learning Group Portal** provides one intuitive and centralised place to discover active, concluded, and archived journeys. Its compact preview summarises active and concluded journeys before opening longer content in Reddit's Expanded Mode, so feed scrolling remains uninterrupted.
+Participants move through configurable sessions at their own pace, keep personal progress, see lightweight community participation totals, and return to the Reddit discussion after completing the journey. Each journey has its own custom post, while the persistent **Learning Group Portal** provides one intuitive and centralised place to discover active, concluded, and archived journeys. Its compact, icon-inspired preview summarises active and concluded journeys before opening longer content in Reddit's Expanded Mode, so feed scrolling remains uninterrupted. The primary action periodically reveals a short participant or moderator hint, while keeping a stable accessible label and respecting reduced-motion preferences.
 
 Learning Group has no advertising, payments, rankings, streak pressure, or external accounts.
 
@@ -18,7 +18,7 @@ Learning Group has no advertising, payments, rankings, streak pressure, or exter
 
 ## For moderators
 
-Installation creates a **Learning Group · Portal** custom post. Its header displays the host subreddit, and moderators can start a new journey from the convenient control at the top. Individual journey previews and expanded views also identify their host subreddit. A compact participant hint sits immediately above the journey listings and stays collapsed by default for moderators, keeping their working path short. The subreddit menu command **Open Learning Group Portal** returns to it or recreates it if necessary.
+Installation creates a **Learning Group · Portal** custom post. Its header displays the host subreddit, and moderators can start a new journey directly from the compact preview or the convenient control at the top of the expanded Portal. Individual journey previews and expanded views also identify their host subreddit. A compact participant hint sits immediately above the journey listings and stays collapsed by default for moderators, keeping their working path short. The subreddit menu command **Open Learning Group Portal** returns to it or recreates it if necessary.
 
 From the Portal, moderators can:
 
@@ -33,7 +33,7 @@ Every completed configuration creates a separate journey post under the signed-i
 
 ## Accessibility and appearance
 
-Learning Group follows the device or Reddit light and dark appearance setting. It uses high-contrast colours, responsive layouts, labelled controls, generous spacing, and the locally bundled Atkinson Hyperlegible Next typeface for clearer character recognition. Reduced-motion preferences are respected. The Portal uses its own indigo-and-gold palette, the Learning Group speech-and-book icon, and distinct active, concluded, and archived card treatments.
+Learning Group follows the device or Reddit light and dark appearance setting. It uses high-contrast colours, responsive layouts, labelled controls, generous spacing, and the locally bundled Atkinson Hyperlegible Next typeface for clearer character recognition. Reduced-motion preferences are respected. The compact Portal preview uses a forest, ivory, ember, and gold palette derived from the Learning Group speech-and-book icon; the expanded Portal retains distinct active, concluded, and archived card treatments.
 
 ## Data and privacy
 

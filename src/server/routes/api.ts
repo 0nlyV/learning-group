@@ -209,11 +209,15 @@ api.get('/hub/preview', async (c) => {
     );
   }
 
-  const journeys = await getRecentJourneySummaries(subredditName, 100);
+  const [journeys, moderator] = await Promise.all([
+    getRecentJourneySummaries(subredditName, 100),
+    getModeratorContext().catch(() => null),
+  ]);
 
   return c.json<HubPreviewResponse>({
     type: 'hub-preview',
     subredditName,
+    isModerator: Boolean(moderator),
     activeJourneyCount: journeys.filter(
       (journey) => !journey.concludedAt && !journey.archivedAt
     ).length,

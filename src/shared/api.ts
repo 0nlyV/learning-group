@@ -63,6 +63,7 @@ export type HubInitResponse = {
 export type HubPreviewResponse = {
   type: 'hub-preview';
   subredditName: string;
+  isModerator: boolean;
   activeJourneyCount: number;
   concludedJourneyCount: number;
 };

@@ -2,6 +2,12 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.5 — 2026-09-12
+
+- Restyled the compact Portal preview around Learning Group's forest, ivory, and ember icon palette with a faint flame-and-book motif and **Gather · Unite · Share** slogan.
+- Added role-aware, gently alternating Portal button copy while preserving a stable accessible label and reduced-motion behavior.
+- Added a moderator-only **Create Journey** shortcut to the compact Portal preview.
+
 ## 1.1.4 — 2026-09-12
 
 - Added active and concluded journey counts to the compact Portal preview, including a clear empty state.

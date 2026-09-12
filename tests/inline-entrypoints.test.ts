@@ -26,7 +26,16 @@ test('long Portal content is reserved for expanded mode', () => {
     /requestExpandedMode\(event\.nativeEvent, 'hubExpanded'\)/
   );
   assert.match(preview, /activeJourneyCount/);
-  assert.match(preview, /Moderator tools are available\s+inside/);
+  assert.match(preview, /isModerator/);
+  assert.match(preview, /Create Journey/);
+  assert.match(preview, /Moderator tools are available inside/);
+  assert.match(preview, /Follow journeys at your own pace/);
+  assert.doesNotMatch(preview, /Community learning/);
+  assert.match(preview, /Gather · Unite · Share/);
+
+  const css = readProjectFile('src/client/index.css');
+  assert.match(css, /hub-preview-primary-label 15s/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
 });
 
 test('inline documents use a bounded, vertically pannable surface', () => {

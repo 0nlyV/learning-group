@@ -60,6 +60,11 @@ export type HubInitResponse = {
   journeys: HubJourneySummary[];
 };
 
+export type HubPreviewResponse = {
+  type: 'hub-preview';
+  subredditName: string;
+};
+
 export type JourneyStatusRequest = {
   postId: string;
   concluded: boolean;

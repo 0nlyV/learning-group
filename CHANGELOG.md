@@ -2,6 +2,12 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.3 — 2026-09-12
+
+- Replaced the full inline Portal with a bounded preview that opens the complete dashboard only after the user selects **Open Portal**.
+- Made both inline entry points explicitly non-scrolling and vertically pannable so Reddit's native feed gestures pass through the post.
+- Removed viewport zoom restrictions and added regression checks for the inline/expanded entry-point separation.
+
 ## 1.1.1 — 2026-09-10
 
 - Added a two-step participant progress reset, race-safe progress updates, semantic progress bars, and generic unsupported-client fallback text.

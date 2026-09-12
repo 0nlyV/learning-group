@@ -16,6 +16,9 @@
       },
       "hub": {
         "inline": true,
+        "entry": "hub-preview.html"
+      },
+      "hubExpanded": {
         "entry": "hub.html"
       }
     }

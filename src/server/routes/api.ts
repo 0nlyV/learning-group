@@ -2,6 +2,7 @@ import { context, reddit } from '@devvit/web/server';
 import { Hono } from 'hono';
 import type {
   HubInitResponse,
+  HubPreviewResponse,
   InitResponse,
   JourneyArchiveRequest,
   JourneyArchiveResponse,
@@ -192,6 +193,25 @@ api.get('/hub/init', async (c) => {
     subredditName,
     isModerator: Boolean(moderator),
     journeys,
+  });
+});
+
+api.get('/hub/preview', async (c) => {
+  const postId = context.postId;
+  const subredditName = context.subredditName;
+  const hubPost =
+    Boolean(postId) &&
+    (requestIsForHub() || (await isHubPost(postId!).catch(() => false)));
+  if (!postId || !subredditName || !hubPost) {
+    return c.json<ErrorResponse>(
+      { status: 'error', message: 'Learning Group Portal not found.' },
+      404
+    );
+  }
+
+  return c.json<HubPreviewResponse>({
+    type: 'hub-preview',
+    subredditName,
   });
 });
 

@@ -8,7 +8,7 @@ permalink: /moderator-guide/
 
 ## Install and open Learning Group
 
-After public approval, install Learning Group from Reddit's App Directory. Installation creates a **Learning Group · Portal** custom post. The subreddit menu command **Open Learning Group Portal** returns to the recorded Portal or recreates it when necessary.
+After public approval, install Learning Group from Reddit's App Directory. Installation creates a **Learning Group · Portal** custom post. The subreddit menu command **Open Learning Group Portal** returns to the recorded Portal or recreates it when necessary. Select **Open Portal** from its compact, non-scrolling post preview to enter the complete management view.
 
 The Portal is both a discovery page for participants and a management surface for moderators. It does not record participant progress of its own.
 

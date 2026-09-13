@@ -1,6 +1,7 @@
 import { requestExpandedMode } from '@devvit/web/client';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import learningGroupIcon from '../../assets/icon.png';
 import { BrandIcon } from './brand-icon';
 import { useJourney } from './hooks/useJourney';
 import './index.css';
@@ -36,18 +37,34 @@ const Splash = () => {
     );
   }
 
+  const previewCopyLength =
+    journey.label.length + journey.title.length + journey.subtitle.length;
+  const copyDensityClass =
+    previewCopyLength > 300
+      ? ' is-copy-very-dense'
+      : previewCopyLength > 180
+        ? ' is-copy-dense'
+        : '';
+
   return (
-    <main className="splash-shell">
+    <main className={`splash-shell${copyDensityClass}`}>
       <div className="grain" aria-hidden="true" />
-      <section className="splash-copy">
+      <div className="journey-preview-motif" aria-hidden="true">
+        <span className="journey-preview-motif-halo" />
+        <img src={learningGroupIcon} alt="" />
+        <p>Gather · Unite · Share</p>
+      </div>
+      <section className="splash-copy" aria-labelledby="journey-preview-title">
         <div className="brand-mark">
           <BrandIcon />
           <span className="journey-community-name">r/{subredditName}</span>
           <span className="journey-product-name">Learning Group</span>
         </div>
-        <p className="eyebrow">{journey.label}</p>
-        <h1>{journey.title}</h1>
-        <p className="splash-subtitle">{journey.subtitle}</p>
+        <div className="journey-preview-summary">
+          <p className="eyebrow">{journey.label}</p>
+          <h1 id="journey-preview-title">{journey.title}</h1>
+          <p className="splash-subtitle">{journey.subtitle}</p>
+        </div>
       </section>
 
       <section className="splash-action" aria-label="Journey progress">

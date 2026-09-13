@@ -2,6 +2,12 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.10 — 2026-09-13
+
+- Coordinated the compact Journey Preview with the Portal through its centred icon, lighting, **Gather · Unite · Share** motif, and lower-left content alignment while retaining the Journey's distinct warm paper-and-forest palette.
+- Let Journey labels, titles, and descriptions wrap in full at narrow and short preview sizes, using progressively tighter compact typography—and yielding decorative artwork for exceptionally long copy—instead of truncation.
+- Replaced the conclusion's squeezed two-column layout with a full-width reflection followed by a wrapping action row; mobile continues to stack the actions vertically.
+
 ## 1.1.9 — 2026-09-13
 
 - Allowed the compact Portal's rotating participant and moderator guidance to wrap cleanly within the action button only at intermediate preview widths where the side panel is narrow.

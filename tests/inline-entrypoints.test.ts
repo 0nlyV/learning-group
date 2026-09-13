@@ -58,6 +58,24 @@ test('long Portal content is reserved for expanded mode', () => {
 
   const previewRoute = readProjectFile('src/server/routes/api.ts');
   assert.match(previewRoute, /archivedJourneyCount:[\s\S]*archivedAt/);
+
+  const journeyPreview = readProjectFile('src/client/splash.tsx');
+  assert.match(journeyPreview, /journey-preview-motif/);
+  assert.match(journeyPreview, /Gather · Unite · Share/);
+  assert.match(journeyPreview, /journey-preview-summary/);
+  assert.match(journeyPreview, /is-copy-very-dense/);
+  assert.match(
+    css,
+    /@media \(max-width: 760px\)[\s\S]*\.splash-shell[\s\S]*align-items: stretch/
+  );
+  assert.doesNotMatch(
+    css,
+    /\.inline-document \.splash-subtitle\s*\{[^}]*-webkit-line-clamp/
+  );
+  assert.doesNotMatch(
+    css,
+    /\.inline-document \.splash-copy h1\s*\{[^}]*-webkit-line-clamp/
+  );
 });
 
 test('Portal actions stay grouped and visually distinct', () => {
@@ -74,6 +92,18 @@ test('Portal actions stay grouped and visually distinct', () => {
   assert.match(openButtonStyle, /border-color: var\(--color-portal-accent\)/);
   assert.ok(archiveButtonStyle);
   assert.doesNotMatch(archiveButtonStyle, /margin-left:\s*auto/);
+});
+
+test('Journey conclusions keep copy and actions in a single-column flow', () => {
+  const css = readProjectFile('src/client/index.css');
+  const closingCardStyle = css.match(/\.closing-card\s*\{([\s\S]*?)\}/)?.[1];
+  const actionStyle = css.match(
+    /\.journey-action-buttons\s*\{([\s\S]*?)\}/
+  )?.[1];
+  assert.ok(closingCardStyle);
+  assert.match(closingCardStyle, /grid-template-columns: 1fr/);
+  assert.ok(actionStyle);
+  assert.match(actionStyle, /flex-wrap: wrap/);
 });
 
 test('inline documents use a bounded, vertically pannable surface', () => {

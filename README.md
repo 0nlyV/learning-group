@@ -33,7 +33,7 @@ Every completed configuration creates a separate journey post under the signed-i
 
 ## Accessibility and appearance
 
-Learning Group follows the device or Reddit light and dark appearance setting. It uses high-contrast colours, responsive layouts, labelled controls, generous spacing, and the locally bundled Atkinson Hyperlegible Next typeface for clearer character recognition. Reduced-motion preferences are respected. The compact preview and expanded Portal share a forest, ivory, ember, and gold palette derived from the Learning Group speech-and-book icon, while active, concluded, and archived cards retain distinct treatments.
+Learning Group follows the device or Reddit light and dark appearance setting. It uses high-contrast colours, responsive layouts, labelled controls, generous spacing, and the locally bundled Atkinson Hyperlegible Next typeface for clearer character recognition. Reduced-motion preferences are respected. The compact previews share the Learning Group icon, soft lighting, and **Gather · Unite · Share** signature, while the Portal uses forest and gold and the Journey retains a distinct warm paper-and-forest palette.
 
 ## Data and privacy
 

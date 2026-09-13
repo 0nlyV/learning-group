@@ -2,6 +2,10 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.9 — 2026-09-13
+
+- Allowed the compact Portal's rotating participant and moderator guidance to wrap cleanly within the action button only at intermediate preview widths where the side panel is narrow.
+
 ## 1.1.8 — 2026-09-13
 
 - Organised Portal card controls into responsive journey and lifecycle action groups so warning actions wrap predictably at every width.

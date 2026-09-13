@@ -622,6 +622,22 @@ h1 {
     opacity: 0;
   }
 }
+@media (min-width: 761px) and (max-width: 1050px) {
+  .hub-preview-button {
+    min-height: 58px;
+  }
+  .hub-preview-button-copy {
+    height: 36px;
+  }
+  .hub-preview-button-label.is-alternate,
+  .hub-preview-button-label.is-hover {
+    padding: 0 4px;
+    line-height: 1.15;
+    text-align: center;
+    text-overflow: clip;
+    white-space: normal;
+  }
+}
 .hub-shell {
   padding: clamp(24px, 4vw, 52px);
   background:

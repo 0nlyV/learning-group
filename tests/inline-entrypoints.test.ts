@@ -51,6 +51,10 @@ test('long Portal content is reserved for expanded mode', () => {
     /hub-preview-button-label\.is-hover[\s\S]*transition: opacity 360ms ease/
   );
   assert.match(css, /hub-preview-button:hover[\s\S]*is-hover/);
+  assert.match(
+    css,
+    /hub-preview-button-label\.is-alternate,[\s\S]*white-space: normal/
+  );
 
   const previewRoute = readProjectFile('src/server/routes/api.ts');
   assert.match(previewRoute, /archivedJourneyCount:[\s\S]*archivedAt/);

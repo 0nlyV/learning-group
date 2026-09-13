@@ -14,6 +14,7 @@ type PreviewState = {
   isModerator: boolean;
   activeJourneyCount: number;
   concludedJourneyCount: number;
+  archivedJourneyCount: number;
 };
 
 const initialState: PreviewState = {
@@ -23,24 +24,23 @@ const initialState: PreviewState = {
   isModerator: false,
   activeJourneyCount: 0,
   concludedJourneyCount: 0,
+  archivedJourneyCount: 0,
 };
 
 const journeySnapshot = ({
   loading,
   activeJourneyCount,
   concludedJourneyCount,
+  archivedJourneyCount,
 }: PreviewState) => {
   if (loading) return 'Loading journey snapshot…';
-  if (activeJourneyCount === 0) {
-    return concludedJourneyCount === 0
-      ? 'No active journeys yet'
-      : `No active journeys · ${concludedJourneyCount} concluded`;
-  }
-
-  const activeLabel = `${activeJourneyCount} active ${
-    activeJourneyCount === 1 ? 'journey' : 'journeys'
-  }`;
-  return `${activeLabel} · ${concludedJourneyCount} concluded`;
+  const activeLabel =
+    activeJourneyCount === 0
+      ? 'No active journeys'
+      : `${activeJourneyCount} active ${
+          activeJourneyCount === 1 ? 'journey' : 'journeys'
+        }`;
+  return `${activeLabel} · ${concludedJourneyCount} concluded · ${archivedJourneyCount} archived`;
 };
 
 const HubPreview = () => {
@@ -60,6 +60,7 @@ const HubPreview = () => {
           isModerator: data.isModerator,
           activeJourneyCount: data.activeJourneyCount,
           concludedJourneyCount: data.concludedJourneyCount,
+          archivedJourneyCount: data.archivedJourneyCount,
         });
       } catch (error) {
         setState({
@@ -70,6 +71,7 @@ const HubPreview = () => {
           isModerator: false,
           activeJourneyCount: 0,
           concludedJourneyCount: 0,
+          archivedJourneyCount: 0,
         });
       }
     };
@@ -107,7 +109,7 @@ const HubPreview = () => {
           <span className="hub-product-name">Learning Group</span>
         </div>
         <div>
-          <h1 id="portal-title">Learning Group Portal</h1>
+          <h1 id="portal-title">Portal Summary</h1>
           <p className="hub-preview-snapshot" aria-live="polite">
             {journeySnapshot(state)}
           </p>

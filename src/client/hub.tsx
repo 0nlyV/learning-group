@@ -265,70 +265,82 @@ const Hub = () => {
                 ) : null}
               </div>
               <div className="hub-card-actions">
-                <button
-                  className="hub-open-button"
-                  onClick={() => navigateTo(journey.postUrl)}
+                <div
+                  className="hub-card-action-group hub-card-action-main"
+                  role="group"
+                  aria-label="Journey actions"
                 >
-                  Open journey
-                </button>
-                {state.isModerator ? (
-                  <>
-                    {!archived ? (
+                  <button
+                    className="hub-open-button"
+                    onClick={() => navigateTo(journey.postUrl)}
+                  >
+                    Open journey
+                  </button>
+                  {state.isModerator ? (
+                    <>
+                      {!archived ? (
+                        <button
+                          className="hub-text-button"
+                          disabled={actionsDisabled}
+                          onClick={() =>
+                            void openEditor('edit', journey.postId)
+                          }
+                        >
+                          Edit
+                        </button>
+                      ) : null}
                       <button
                         className="hub-text-button"
                         disabled={actionsDisabled}
-                        onClick={() => void openEditor('edit', journey.postId)}
+                        onClick={() =>
+                          void openEditor('create', journey.postId)
+                        }
                       >
-                        Edit
+                        Use as template
+                      </button>
+                    </>
+                  ) : null}
+                </div>
+                {state.isModerator && !archived ? (
+                  <div
+                    className="hub-card-action-group hub-card-action-lifecycle"
+                    role="group"
+                    aria-label="Journey status actions"
+                  >
+                    <button
+                      className="hub-text-button hub-status-button"
+                      disabled={actionsDisabled}
+                      onClick={() => void setJourneyStatus(journey, !concluded)}
+                    >
+                      {statusSavingPostId === journey.postId
+                        ? concluded
+                          ? 'Reopening…'
+                          : 'Concluding…'
+                        : concluded
+                          ? 'Reopen'
+                          : 'Conclude'}
+                    </button>
+                    <button
+                      className={`hub-text-button hub-archive-button ${confirmingArchive ? 'is-confirming' : ''}`}
+                      disabled={archiveDisabled}
+                      onClick={() => void archiveJourney(journey)}
+                    >
+                      {archiveSavingPostId === journey.postId
+                        ? 'Archiving…'
+                        : confirmingArchive
+                          ? 'Confirm archive'
+                          : 'Archive'}
+                    </button>
+                    {confirmingArchive ? (
+                      <button
+                        className="hub-text-button"
+                        disabled={actionsBusy}
+                        onClick={() => setArchiveConfirmPostId(null)}
+                      >
+                        Cancel
                       </button>
                     ) : null}
-                    <button
-                      className="hub-text-button"
-                      disabled={actionsDisabled}
-                      onClick={() => void openEditor('create', journey.postId)}
-                    >
-                      Use as template
-                    </button>
-                    {!archived ? (
-                      <>
-                        <button
-                          className="hub-text-button hub-status-button"
-                          disabled={actionsDisabled}
-                          onClick={() =>
-                            void setJourneyStatus(journey, !concluded)
-                          }
-                        >
-                          {statusSavingPostId === journey.postId
-                            ? concluded
-                              ? 'Reopening…'
-                              : 'Concluding…'
-                            : concluded
-                              ? 'Reopen'
-                              : 'Conclude'}
-                        </button>
-                        <button
-                          className={`hub-text-button hub-archive-button ${confirmingArchive ? 'is-confirming' : ''}`}
-                          disabled={archiveDisabled}
-                          onClick={() => void archiveJourney(journey)}
-                        >
-                          {archiveSavingPostId === journey.postId
-                            ? 'Archiving…'
-                            : confirmingArchive
-                              ? 'Confirm archive'
-                              : 'Archive'}
-                        </button>
-                        {confirmingArchive ? (
-                          <button
-                            className="hub-text-button"
-                            disabled={actionsBusy}
-                            onClick={() => setArchiveConfirmPostId(null)}
-                          >
-                            Cancel
-                          </button>
-                        ) : null}
-                      </>
-                    ) : null}
-                  </>
+                  </div>
                 ) : null}
               </div>
             </article>

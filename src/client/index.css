@@ -56,16 +56,16 @@
   --color-action-copy: #59675d;
   --color-loading: #59675d;
   --color-decoration: rgba(64, 85, 62, 0.16);
-  --color-portal-header: #29335c;
-  --color-portal-header-hover: #20294f;
-  --color-portal-header-text: #fffdf7;
+  --color-portal-header: #174532;
+  --color-portal-header-hover: #0f3526;
+  --color-portal-header-text: #fff9ec;
   --color-portal-accent: #f2c14e;
-  --color-portal-accent-text: #202744;
-  --color-portal-intro: #eef0fb;
-  --color-portal-intro-border: #aeb8df;
-  --color-portal-card-active: #fffaf0;
-  --color-portal-card-concluded: #eeedf2;
-  --color-portal-shadow: rgba(41, 51, 92, 0.2);
+  --color-portal-accent-text: #173227;
+  --color-portal-intro: #e4ede6;
+  --color-portal-intro-border: #8ca697;
+  --color-portal-card-active: #fff9ed;
+  --color-portal-card-concluded: #e9eee9;
+  --color-portal-shadow: rgba(16, 45, 34, 0.2);
   font-family:
     'Atkinson Hyperlegible Next',
     Atkinson Hyperlegible,
@@ -130,15 +130,15 @@
     --color-action-copy: #b8c2b6;
     --color-loading: #b8c2b6;
     --color-decoration: rgba(174, 196, 172, 0.14);
-    --color-portal-header: #20294f;
-    --color-portal-header-hover: #2b3768;
-    --color-portal-header-text: #fbf9f2;
+    --color-portal-header: #102d22;
+    --color-portal-header-hover: #194632;
+    --color-portal-header-text: #fff9ec;
     --color-portal-accent: #ffd166;
-    --color-portal-accent-text: #181e35;
-    --color-portal-intro: #202640;
-    --color-portal-intro-border: #5b6a9c;
-    --color-portal-card-active: #272b35;
-    --color-portal-card-concluded: #202329;
+    --color-portal-accent-text: #102d22;
+    --color-portal-intro: #1a2c23;
+    --color-portal-intro-border: #607868;
+    --color-portal-card-active: #202d26;
+    --color-portal-card-concluded: #19231e;
     --color-portal-shadow: rgba(0, 0, 0, 0.38);
   }
 }
@@ -420,10 +420,10 @@ h1 {
 .hub-preview-motif {
   position: absolute;
   z-index: 0;
-  top: 47%;
-  right: clamp(30px, 7vw, 96px);
+  top: 45%;
+  left: 57%;
   width: clamp(210px, 31vw, 390px);
-  transform: translateY(-58%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 .hub-preview-motif-halo {
@@ -659,12 +659,12 @@ h1 {
 .hub-header::after {
   content: '';
   position: absolute;
-  right: -38px;
-  bottom: -70px;
-  width: 150px;
-  height: 150px;
-  border: 18px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50% 50% 0 0;
+  top: -54px;
+  right: -28px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 193, 78, 0.2), transparent 68%);
   pointer-events: none;
 }
 .hub-header .brand-mark,
@@ -871,8 +871,21 @@ h1 {
 .hub-card-actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px 18px;
+}
+.hub-card-action-group {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+.hub-card-action-main {
+  flex: 1 1 320px;
+}
+.hub-card-action-lifecycle {
+  flex: 0 1 auto;
+  justify-content: flex-end;
 }
 .hub-open-button,
 .hub-text-button {
@@ -885,10 +898,13 @@ h1 {
 }
 .hub-open-button {
   color: var(--color-portal-header-text);
-  border-color: var(--color-portal-header);
+  border-color: var(--color-portal-accent);
   background: var(--color-portal-header);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--color-portal-accent) 38%, transparent);
 }
 .hub-open-button:hover {
+  border-color: var(--color-portal-accent);
   background: var(--color-portal-header-hover);
 }
 .hub-text-button {
@@ -902,7 +918,6 @@ h1 {
   margin-left: 0;
 }
 .hub-archive-button {
-  margin-left: auto;
   border-color: var(--color-error-border);
   color: var(--color-error-text);
   background: transparent;
@@ -1412,10 +1427,10 @@ h1 {
     padding: 20px 18px;
   }
   .hub-preview-motif {
-    top: 33%;
-    right: 20px;
+    top: 42%;
+    left: 50%;
     width: min(58%, 300px);
-    transform: translateY(-62%);
+    transform: translate(-50%, -50%);
   }
   .hub-preview-motif p {
     margin-top: 18px;
@@ -1471,9 +1486,12 @@ h1 {
     flex-direction: column;
     gap: 2px;
   }
-  .hub-status-button,
-  .hub-archive-button {
-    margin-left: 0;
+  .hub-card-action-main,
+  .hub-card-action-lifecycle {
+    flex-basis: 100%;
+  }
+  .hub-card-action-lifecycle {
+    justify-content: flex-start;
   }
   .hero-grid {
     grid-template-columns: 1fr;
@@ -1544,7 +1562,8 @@ h1 {
     margin-top: 10px;
   }
   .hub-preview-motif {
-    top: 24%;
+    top: 35%;
+    left: 50%;
     width: min(52%, 260px);
   }
   .inline-document .splash-action,

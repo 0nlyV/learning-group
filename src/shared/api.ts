@@ -66,6 +66,7 @@ export type HubPreviewResponse = {
   isModerator: boolean;
   activeJourneyCount: number;
   concludedJourneyCount: number;
+  archivedJourneyCount: number;
 };
 
 export type JourneyStatusRequest = {

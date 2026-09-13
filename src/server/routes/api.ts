@@ -224,6 +224,8 @@ api.get('/hub/preview', async (c) => {
     concludedJourneyCount: journeys.filter(
       (journey) => journey.concludedAt && !journey.archivedAt
     ).length,
+    archivedJourneyCount: journeys.filter((journey) => journey.archivedAt)
+      .length,
   });
 });
 

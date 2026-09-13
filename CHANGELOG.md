@@ -2,6 +2,12 @@
 
 Notable public changes to Learning Group are recorded here. The public app and Git history begin with version 1.0.0.
 
+## 1.1.8 — 2026-09-13
+
+- Organised Portal card controls into responsive journey and lifecycle action groups so warning actions wrap predictably at every width.
+- Matched the expanded Portal to the compact preview's forest-and-ember palette and strengthened the **Open journey** outline in dark appearance.
+- Renamed the compact heading to **Portal Summary**, centred its decorative motif, and added archived journeys to its live count.
+
 ## 1.1.7 — 2026-09-13
 
 - Reworked the compact Portal journey summary as larger, unboxed informational text so it cannot be mistaken for an interactive control.

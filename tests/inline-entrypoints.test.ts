@@ -26,6 +26,8 @@ test('long Portal content is reserved for expanded mode', () => {
     /requestExpandedMode\(event\.nativeEvent, 'hubExpanded'\)/
   );
   assert.match(preview, /activeJourneyCount/);
+  assert.match(preview, /archivedJourneyCount/);
+  assert.match(preview, /Portal Summary/);
   assert.match(preview, /isModerator/);
   assert.match(preview, /Create Journey/);
   assert.match(preview, /Moderator tools are available inside/);
@@ -49,6 +51,25 @@ test('long Portal content is reserved for expanded mode', () => {
     /hub-preview-button-label\.is-hover[\s\S]*transition: opacity 360ms ease/
   );
   assert.match(css, /hub-preview-button:hover[\s\S]*is-hover/);
+
+  const previewRoute = readProjectFile('src/server/routes/api.ts');
+  assert.match(previewRoute, /archivedJourneyCount:[\s\S]*archivedAt/);
+});
+
+test('Portal actions stay grouped and visually distinct', () => {
+  const hub = readProjectFile('src/client/hub.tsx');
+  assert.match(hub, /hub-card-action-main/);
+  assert.match(hub, /hub-card-action-lifecycle/);
+
+  const css = readProjectFile('src/client/index.css');
+  const openButtonStyle = css.match(/\.hub-open-button\s*\{([\s\S]*?)\}/)?.[1];
+  const archiveButtonStyle = css.match(
+    /\.hub-archive-button\s*\{([\s\S]*?)\}/
+  )?.[1];
+  assert.ok(openButtonStyle);
+  assert.match(openButtonStyle, /border-color: var\(--color-portal-accent\)/);
+  assert.ok(archiveButtonStyle);
+  assert.doesNotMatch(archiveButtonStyle, /margin-left:\s*auto/);
 });
 
 test('inline documents use a bounded, vertically pannable surface', () => {
